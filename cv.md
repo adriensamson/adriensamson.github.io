@@ -7,11 +7,11 @@ layout: default
 ### Smile - Stagiaire puis Ingénieur études et développement
 
 #### Depuis janvier 2013
-Au sein de l'équipe Cytron des sites de chaînes de [M6Web](http://tech.m6web.fr), je participe à la réalisation de plusieurs API REST avec Symfony2.
-Ces API fournissent du contenu au portail [M6Info By MSN](http://news.fr.msn.com/m6-actualite/) ainsi qu'aux applications mobiles des chaînes du groupe M6.
+Au sein de l'équipe Cytron de [M6Web](http://tech.m6web.fr), je participe à la réalisation de plusieurs API REST avec Symfony2.
+Ces API fournissent du contenu au portail [M6Info By MSN](http://news.fr.msn.com/m6-actualite/) ainsi qu'aux différentes applications mobiles des chaînes du groupe M6.
 
 #### Juillet 2012 - Décembre 2012
-J'ai participé à la refonte de la partie e-commerce de [ANWB](http://www.anwb.nl/webwinkel).
+J'ai participé à la refonte de la partie e-commerce de [ANWB](http://webwinkel.anwb.nl/webwinkel).
 J'ai optimisé les performances du tunnel de vente et travaillé sur les échanges SOAP avec l'ERP.
 
 #### Juillet 2011 - Aout 2012
@@ -26,14 +26,33 @@ J'ai principalement travaillé sur les imports de produits et les exports des co
 J'ai participé à la refonte du site e-commerce de [Made In Design](http://www.madeindesign.com) avec Magento EE.
 J'ai notamment réalisé un module de détection et de validation des commandes possiblement frauduleuses.
 
-### Ascomedia
+### Ascomedia - Stagiaire Développement web
 #### juin 2009 - août 2009
 J'ai développé en PHP un site de réalisation de devis pour un artisan-bijoutier lyonnais.
 Le point critique était le calcul métier du prix d'une alliance en fonction du modèle, de la taille et des prix de l'or et des pierres.
 
 ## Compétences
 
+### Languages
+* PHP
+* Javascript
+* (X)HTML, CSS
+* XML, XSD, XSLT
+* OCaml
+* Bash
 
+### Solutions
+* Symfony2
+* Doctrine2
+* Magento
+* Drupal
+
+### Outils
+* Git, Subversion
+* Composer
+* MySQL, Redis, Memcached, MongoDB
+* Varnish
+* Debian
 
 ## Formation
 
