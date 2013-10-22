@@ -6,28 +6,30 @@ layout: default
 
 ### Smile - Stagiaire puis Ingénieur études et développement
 
-#### Depuis janvier 2013
-Au sein de l'équipe Cytron de [M6Web](http://tech.m6web.fr), je participe à la réalisation de plusieurs API REST avec Symfony2.
+#### Janv. 2013 - Auj. : [M6Web](http://tech.m6web.fr) - Symfony2
+Au sein de l'équipe Cytron de M6Web, je participe à la réalisation de plusieurs API REST avec Symfony2.
 Ces API fournissent du contenu au portail [M6Info By MSN](http://news.fr.msn.com/m6-actualite/) ainsi qu'aux différentes applications mobiles des chaînes du groupe M6.
 
-#### Juillet 2012 - Décembre 2012
-J'ai participé à la refonte de la partie e-commerce de [ANWB](http://webwinkel.anwb.nl/webwinkel).
-J'ai optimisé les performances du tunnel de vente et travaillé sur les échanges SOAP avec l'ERP.
+#### Juil. 2012 - Déc. 2012 : [ANWB](http://webwinkel.anwb.nl/webwinkel) - Magento EE
+J'ai travaillé sur les échanges de données clients et commandes avec l'ERP avec des WebServices SOAP.
+J'ai optimisé les performances du tunnel de vente afin de tenir la charge envisagée de 2000 commandes par heure.
 
-#### Juillet 2011 - Aout 2012
-J'ai participé à la refonte du site e-commerce de [Decitre](http://www.decitre.fr) avec Magento CE.
+#### Juil. 2011 - Août 2012 : [Decitre](http://www.decitre.fr) - Magento CE
 Nous avons beaucoup travaillé sur l'adaptation de Magento pour obtenir de bonnes perfomances avec plus d'un million et demi de produits.
+Pour cela, les informations des produits sont stockées et dénormalisées dans le moteur de recherche SolR pour limiter le nombre de requêtes dans la base de données.
+J'ai optimisé les requêtes SQL qui sont chargées des imports de données produits dans la base de données puis dans SolR.
+J'ai aussi réalisé la migration des données clients, commmandes, paniers et listes de souhaits depuis l'ancien site.
 
-#### Novembre 2010 - Juin 2011
-J'ai participé à la création du site B2B [PourMonBureau](http://www.pourmonbureau.com) avec Magento EE.
-J'ai principalement travaillé sur les imports de produits et les exports des commandes et clients depuis et vers l'ERP.
+#### Nov. 2010 - Juin 2011 : [PourMonBureau](http://www.pourmonbureau.com) - Magento EE
+J'ai participé à la création de ce site B2B de fournitures de bureau.
+J'ai travaillé sur les imports de produits à partir de fichiers plats, les exports des commandes et clients vers l'ERP avec des WebServices SOAP.
+J'ai mis en place une configuration spécifique de Varnish en tant que reverse-proxy de cache devant Magento.
 
-#### Avril 2010 - Octobre 2010
-J'ai participé à la refonte du site e-commerce de [Made In Design](http://www.madeindesign.com) avec Magento EE.
-J'ai notamment réalisé un module de détection et de validation des commandes possiblement frauduleuses.
+#### Avr. 2010 - Oct. 2010 : [Made In Design](http://www.madeindesign.com) - Magento EE
+Sur la refonte du site e-commerce, j'ai notamment réalisé un module de détection et de validation des commandes possiblement frauduleuses.
 
 ### Ascomedia - Stagiaire Développement web
-#### juin 2009 - août 2009
+#### Juin 2009 - Août 2009
 J'ai développé en PHP un site de réalisation de devis pour un artisan-bijoutier lyonnais.
 Le point critique était le calcul métier du prix d'une alliance en fonction du modèle, de la taille et des prix de l'or et des pierres.
 
@@ -50,7 +52,7 @@ Le point critique était le calcul métier du prix d'une alliance en fonction du
 ### Outils
 * Git, Subversion
 * Composer
-* MySQL, Redis, Memcached, MongoDB
+* MySQL, Redis, Memcached, MongoDB, SolR
 * Varnish
 * Debian
 
