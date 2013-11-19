@@ -4,10 +4,10 @@ layout: default
 
 ## Expériences professionnelles
 
-### Smile - Stagiaire puis Ingénieur études et développement
+### [Smile](http://www.smile.fr) - Stagiaire puis Ingénieur études et développement
 
 #### Janv. 2013 - Auj. : [M6Web](http://tech.m6web.fr) - Symfony2
-Au sein de l'équipe Cytron de M6Web, je participe à la réalisation de plusieurs API REST avec Symfony2.
+Au sein de l'équipe [Cytron](http://cytron.fr) de M6Web, je participe à la réalisation de plusieurs API REST avec Symfony2.
 Ces API fournissent du contenu au portail [M6Info By MSN](http://news.fr.msn.com/m6-actualite/) ainsi qu'aux différentes applications mobiles des chaînes du groupe M6.
 
 #### Juil. 2012 - Déc. 2012 : [ANWB](http://webwinkel.anwb.nl/webwinkel) - Magento EE
