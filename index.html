@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<h3>Bonjour</h3>
+
+<p>Je suis développeur web depuis un peu plus de 3 ans.
+Après avoir travaillé sur quelques sites e-commerce avec <a href="http://magento.com">Magento</a>, je fais maintenant des API REST avec <a href="http://symfony.com">Symfony2</a> dans la team <a href="http://cytron.fr">Cytron</a> de <a href="http://tech.m6web.fr">M6Web</a>.
+</p>
+<p><a href="cv.html">En savoir plus</a></p>
+
+<h3>Blog posts</h3>
+<ul class="posts">
+{% for post in site.posts %}
+<li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
