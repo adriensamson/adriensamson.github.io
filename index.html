@@ -30,6 +30,10 @@ other_languages:
 <h3>Blog posts</h3>
 <ul class="posts">
 {% for post in site.posts %}
-<li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% if post.language == 'fr' %}
+    <li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% elsif post.other_languages.fr == null %}
+  <li>{{ post.date | date_to_string }} [{{post.language}}] <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endif %}
 {% endfor %}
 </ul>

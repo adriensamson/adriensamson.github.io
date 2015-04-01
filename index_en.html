@@ -15,3 +15,13 @@ other_languages:
   software.
 </p>
 <p><a href="resume.html">Learn more</a></p>
+
+<ul class="posts">
+  {% for post in site.posts %}
+  {% if post.language == 'en' %}
+  <li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% elsif post.other_languages.en == null %}
+  <li>{{ post.date | date_to_string }} [{{post.language}}] <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>

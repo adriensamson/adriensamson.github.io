@@ -1,6 +1,9 @@
 ---
 layout: post
 title: My git aliases
+language: en
+other_languages:
+    fr: mes-alias-git.html
 ---
 ## Most used commands
 

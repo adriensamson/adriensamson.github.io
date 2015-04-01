@@ -35,12 +35,13 @@
 
         <section id="downloads" class="clearfix">
           <hr/>
-          {% if page.language == 'fr' %}
+          {% case page.language %}
+          {% when 'fr' %}
           <a href="https://github.com/adriensamson" id="view-on-github"
              class="button"><span>Me trouver sur GitHub</span></a>
           {% else %}
             <a href="https://github.com/adriensamson" id="view-on-github" class="button"><span>Find me on GitHub</span></a>
-          {% endif %}
+          {% endcase %}
         </section>
       </div>
     </div>

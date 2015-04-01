@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Containerize with docker
+language: en
 ---
 
 There are mainly two reasons why you may want to containerize your apps:
