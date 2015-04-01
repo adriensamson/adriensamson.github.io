@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ page.language }}">
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -20,8 +20,14 @@
         <header>
           <h1><a href="/">Adrien Samson</a></h1>
         </header>
-
         <hr />
+        {% if page.other_languages %}
+        <nav id="other_languages">
+          {% for language in page.other_languages %}
+          <a href="{{language[1]}}">[{{language[0]}}]</a>
+          {% endfor %}
+        </nav>
+        {% endif %}
 
         <section id="main_content">
         {{ content }}
@@ -29,7 +35,12 @@
 
         <section id="downloads" class="clearfix">
           <hr/>
-          <a href="https://github.com/adriensamson" id="view-on-github" class="button"><span>Find me on GitHub</span></a>
+          {% if page.language == 'fr' %}
+          <a href="https://github.com/adriensamson" id="view-on-github"
+             class="button"><span>Me trouver sur GitHub</span></a>
+          {% else %}
+            <a href="https://github.com/adriensamson" id="view-on-github" class="button"><span>Find me on GitHub</span></a>
+          {% endif %}
         </section>
       </div>
     </div>
