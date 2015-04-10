@@ -2,6 +2,7 @@
 
 serve () {
     bundle exec jekyll serve $@
+    #docker run -it adriensamson/github-pages jekyll serve $@
 }
 
 watch () {

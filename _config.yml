@@ -1,2 +1,3 @@
 exclude: [do, Gemfile*]
 markdown: kramdown
+highlighter: pygments

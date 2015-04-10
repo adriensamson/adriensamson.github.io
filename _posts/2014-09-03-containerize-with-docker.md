@@ -37,7 +37,7 @@ CMD /etc/init.d/nginx start && bash
 
 You don't have to expose the container's ports on the host. Most of the time, What you really need is the IP address of the container.
 
-~~~sh
+{% highlight bash %}
 docker inspect --format='{{ "{{" }} .NetworkSettings.IPAddress }}' $CONTAINER
-~~~
+{% endhighlight %}
 

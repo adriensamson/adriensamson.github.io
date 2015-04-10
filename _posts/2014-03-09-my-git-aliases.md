@@ -9,7 +9,7 @@ other_languages:
 
 When I'm working on a project at [M6Web](http://tech.m6web.fr), my workflow is almost always like this:
 
-{% highlight sh %}
+{% highlight bash %}
 git checkout master
 git pull --ff-only origin master
 git checkout -b my-new-feature
@@ -22,7 +22,7 @@ git push origin my-new-feature
 {% endhighlight %}
 
 Since I run these commands very often, I've abbreviated them to 1 or 2 letters:
-{% highlight sh %}
+{% highlight bash %}
 git co master
 git u
 git co -b my-new-feature

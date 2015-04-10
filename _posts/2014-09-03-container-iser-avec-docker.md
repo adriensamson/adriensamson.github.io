@@ -38,6 +38,6 @@ CMD /etc/init.d/nginx start && bash
 
 Vous n'avez pas besoin d'exposer les ports du *container* sur la machine hôte. La plupart du temps, ce dont vous avez réellement besoin est l'adresse IP du *container*.
 
-~~~sh
+{% highlight bash %}
 docker inspect --format='{{ "{{" }} .NetworkSettings.IPAddress }}' $CONTAINER
-~~~
+{% endhighlight %}

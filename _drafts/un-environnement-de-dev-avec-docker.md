@@ -36,19 +36,19 @@ Des exemples pour mysql et nginx sont disponibles sur le repo [adriensamson/dock
 Une fois cette image construite avec `docker build -t myproject-phpcli /path/to/Dockerfile`, on pourra lancer composer dans un container avec `docker run -it -v $PWD:/srv composer install`.
 Et puisque cette ligne est un peu longue, on peut la mettre dans un [do-file]({% post_url 2015-04-09-do-file %}) :
 
-~~~
+{% highlight bash %}
 composer () {
     docker run -it -v $PWD:/srv composer $@
 }
-~~~
+{% endhighlight %}
 
 De la même manière, on peut utiliser ce container pour accéder à la console symfony et lui donner accès au container mysql :
 
-~~~
+{% highlight bash %}
 startmysql () {
     if docker inspect myproject-mysql 1>/dev/null 2>&1
     then
-        if [ $(docker inspect -f '{{ .State.Running }}' myproject-mysql) -eq "false" ]
+        if [ $(docker inspect -f '{{ '{{' }} .State.Running }}' myproject-mysql) -eq "false" ]
         then
             docker restart myproject-mysql
         fi
@@ -66,7 +66,7 @@ sf () {
     startmysql
     docker run -it -v $PWD:/srv --link myproject-mysql:mysql app/console $@
 }
-~~~
+{% endhighlight %}
 
 Depuis la version 1.3, docker ajoute automatiquement les IP des containers liés dans /etc/hosts donc il suffit dans ce cas de configurer `mysql` comme hôte MySQL.
 

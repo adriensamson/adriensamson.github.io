@@ -9,7 +9,7 @@ other_languages:
 
 Quand je travaille sur un projet chez [M6Web](http://tech.m6web.fr), je fais toujours à peu près ça :
 
-{% highlight sh %}
+{% highlight bash %}
 git checkout master
 git pull --ff-only origin master
 git checkout -b my-new-feature
@@ -23,7 +23,7 @@ git push origin my-new-feature
 
 Vu que j'utilise ces commandes très souvent, je les ai abbrégé pour ne faire qu'une ou deux lettres :
 
-{% highlight sh %}
+{% highlight bash %}
 git co master
 git u
 git co -b my-new-feature
