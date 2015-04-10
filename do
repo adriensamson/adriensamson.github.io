@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 serve () {
-    bundle exec jekyll serve $@
-    #docker run -it adriensamson/github-pages jekyll serve $@
+    docker run -it -v $PWD:/srv -p 4000:4000 adriensamson/github-pages jekyll serve $@
 }
 
 watch () {
