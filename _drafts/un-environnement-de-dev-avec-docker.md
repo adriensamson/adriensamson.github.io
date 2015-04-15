@@ -23,8 +23,8 @@ Par exemple, le Dockerfile pour lancer les scripts contriendra :
 ~~~
 FROM stackbrew/debian:wheezy
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update
-RUN apt-get install -y curl php5-cli
+# Vous pouvez ajouter d'autres extensions PHP ici
+RUN apt-get update && apt-get install -y curl php5-cli php5-curl php5-intl php5-mysql
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 VOLUME /srv
@@ -38,7 +38,8 @@ Et puisque cette ligne est un peu longue, on peut la mettre dans un [do-file]({%
 
 {% highlight bash %}
 composer () {
-    docker run -it -v $PWD:/srv composer $@
+    # --rm pour supprimer le container dès qu'il a fini
+    docker run -it --rm -v $PWD:/srv composer $@
 }
 {% endhighlight %}
 
@@ -46,13 +47,16 @@ De la même manière, on peut utiliser ce container pour accéder à la console 
 
 {% highlight bash %}
 startmysql () {
+    # est-ce que le container existe déjà ?
     if docker inspect myproject-mysql 1>/dev/null 2>&1
     then
+        # est-ce qu'il faut le redémarrer ?
         if [ $(docker inspect -f '{{ '{{' }} .State.Running }}' myproject-mysql) -eq "false" ]
         then
             docker restart myproject-mysql
         fi
     else
+        # les données de la base sont conservés dans ./var/mysql
         docker run -itd -v $PWD/var/mysql:/var/lib/mysql --name myproject-mysql adriensamson/mysql
     fi
 }
@@ -64,9 +68,45 @@ stopmysql () {
 
 sf () {
     startmysql
-    docker run -it -v $PWD:/srv --link myproject-mysql:mysql app/console $@
+    docker run -it --rm -v $PWD:/srv --link myproject-mysql:mysql app/console $@
 }
 {% endhighlight %}
 
-Depuis la version 1.3, docker ajoute automatiquement les IP des containers liés dans /etc/hosts donc il suffit dans ce cas de configurer `mysql` comme hôte MySQL.
+Depuis la version 1.3, docker ajoute automatiquement les IP des containers liés dans /etc/hosts donc il suffit dans ce cas de configurer `mysql` comme hôte MySQL :
 
+{% highlight yaml %}
+doctrine:
+    dbal:
+        driver: "pdo_mysql"
+        host: "mysql"
+{% endhighlight %}
+
+Pour lancer nginx c'est à peu près pareil.
+
+{% highlight bash %}
+startnginx () {
+    startmysql
+    if docker inspect myproject-nginx 1>/dev/null 2>&1
+    then
+        if [ $(docker inspect -f '{{ '{{' }} .State.Running }}' myproject-nginx) -eq "false" ]
+        then
+            docker restart myproject-nginx
+        fi
+    else
+        docker run -itd -v $PWD:/srv --link myproject-mysql:mysql --name myproject-nginx myproject-nginx
+    fi
+    
+    # on affiche l'IP du container
+    docker inspect -f '{{ '{{' }} .NetworkSettings.IPAddress }}' myproject-nginx
+}
+
+stopnginx () {
+    docker stop myproject-nginx
+    docker rm myproject-nginx
+}
+
+{% endhighlight %}
+
+Et voilà, on a un environnement de dev avec trois containers : un pour mysql, un pour fpm et nginx et un dernier pour la console php.
+
+Et depuis la version 1.3 de docker, on peut *entrer* dans un container pour débugguer (aller lire les logs d'erreur nginx par exemple) avec `docker exec -it myproject-nginx bash`.
