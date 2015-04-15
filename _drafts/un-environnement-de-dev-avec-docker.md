@@ -34,12 +34,17 @@ WORKDIR /srv
 Des exemples pour mysql et nginx sont disponibles sur le repo [adriensamson/docker-images](https://github.com/adriensamson/docker-images).
 
 Une fois cette image construite avec `docker build -t myproject-phpcli /path/to/Dockerfile`, on pourra lancer composer dans un container avec `docker run -it -v $PWD:/srv composer install`.
+On ajoute l'option `--rm` pour supprimer le container dès que la commande est terminée.
+
+Il reste un petit problème de droits, puisque `composer` serait lancé en root et donc va installer les vendors en root.
+Il y a bien la commande `USER` que l'on peut mettre dans le Dockerfile mais cela nécessite de créer un user et de lui donner le même uid que l'utilisateur qui lancera le container, ce qui pose problème pour réutiliser l'image.
+Il est aussi possible de spécifier l'utilisateur à la commande `run` avec `-u` et nous allons lui donner l'uid et le gid de l'utilisateur courant grâce à [id](http://linux.die.net/man/1/id).
+
 Et puisque cette ligne est un peu longue, on peut la mettre dans un [do-file]({% post_url 2015-04-09-do-file %}) :
 
 {% highlight bash %}
 composer () {
-    # --rm pour supprimer le container dès qu'il a fini
-    docker run -it --rm -v $PWD:/srv composer $@
+    docker run -it --rm -u $(id -u):$(id -g) -v $PWD:/srv composer $@
 }
 {% endhighlight %}
 
@@ -68,7 +73,7 @@ stopmysql () {
 
 sf () {
     startmysql
-    docker run -it --rm -v $PWD:/srv --link myproject-mysql:mysql app/console $@
+    docker run -it --rm -u $(id -u):$(id -g) -v $PWD:/srv --link myproject-mysql:mysql app/console $@
 }
 {% endhighlight %}
 
