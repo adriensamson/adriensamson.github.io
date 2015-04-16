@@ -115,3 +115,29 @@ stopnginx () {
 Et voilà, on a un environnement de dev avec trois containers : un pour mysql, un pour fpm et nginx et un dernier pour la console php.
 
 Et depuis la version 1.3 de docker, on peut *entrer* dans un container pour débugguer (aller lire les logs d'erreur nginx par exemple) avec `docker exec -it myproject-nginx bash`.
+
+## Container de données
+
+Dernier détail, les bases MySQL sont stockées au milieu du projet dans var/mysql avec les droits d'un user mysql. Pour éviter cela, on peut utiliser un container de données.
+C'est un container qui ne lance pas de commande mais qui a juste un système de fichiers pour stocker des données.
+Pour cela, il suffit de créer un container avec `docker create` et de l'utiliser avec `--volumes-from`.
+
+{% highlight bash %}
+startmysql () {
+    # données
+    if ! docker inspect myproject-mysql-data 1>/dev/null 2>&1
+        docker create --name myproject-mysql-data adriensamson/mysql
+    fi
+
+    # serveur mysql
+    if docker inspect myproject-mysql 1>/dev/null 2>&1
+    then
+        if [ $(docker inspect -f '{{ '{{' }} .State.Running }}' myproject-mysql) -eq "false" ]
+        then
+            docker restart myproject-mysql
+        fi
+    else
+        docker run -itd --volumes-from myproject-mysql-data --name myproject-mysql adriensamson/mysql
+    fi
+}
+{% endhighlight %}
