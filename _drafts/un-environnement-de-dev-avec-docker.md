@@ -127,6 +127,8 @@ startmysql () {
     # données
     if ! docker inspect myproject-mysql-data 1>/dev/null 2>&1
         docker create --name myproject-mysql-data adriensamson/mysql
+        # en 1.3, create n'initialise pas les volumes, il faut utiliser run
+        # docker run --name myproject-mysql-data adriensamson/mysql true
     fi
 
     # serveur mysql
