@@ -249,7 +249,7 @@ h1 {
 h2 {
   font-size: 22px;
   font-weight: bold;
-  color: #303030;
+  color: #bc000b;
   margin-bottom: 8px;
 } 
 
@@ -392,8 +392,9 @@ ul.posts li {
     padding-left: 0;
 }
 
-h3 small {
+h2 small, h3 small {
   color: #6d6d6d;
   font-size: 1rem;
   font-weight: normal;
+  vertical-align: top;
 }
