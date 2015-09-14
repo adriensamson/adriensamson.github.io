@@ -18,5 +18,11 @@ title: Programme des ateliers
 * Avancer étape par étape vers la cible
 * Vérifier l'absence de régression
 
+## Mise en place de tests unitaires et/ou fonctionnels {#tests}
+
+* Définir une stratégie de tests pertinente
+* Choisir les outils adaptés
+* Initialiser les premiers tests
+* Rendre testables les éléments importants
 
 [Présentation](offres.html) \| [Formations](formations.html)
