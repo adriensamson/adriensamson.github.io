@@ -149,22 +149,13 @@ a.button:hover {
 }
 
 a.button span {
-  padding-left: 42px;
   display: block;
   height: 23px;
 }
 
-#download-zip span {
-  background: transparent url(../images/zip-icon.png) 12px 50% no-repeat;
-}
-#download-tar-gz span {
-  background: transparent url(../images/tar-gz-icon.png) 12px 50% no-repeat;
-}
 #view-on-github span {
+  padding-left: 42px;
   background: transparent url(../images/octocat-icon.png) 4px 50% no-repeat;
-}
-#view-on-github {
-  margin-right: 0;
 }
 
 code, pre {
