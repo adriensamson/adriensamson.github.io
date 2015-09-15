@@ -6,11 +6,10 @@ language: fr
 
 ## Cordova et PhoneGap
 
-[Cordova](http://cordova.apache.org) est plus connu sous le nom de [PhoneGap](http://phonegap.com).
-En 2011, le code de PhoneGap a été donné à la fondation Apache, et PhoneGap n'est maintenant qu'une surcouche à Cordova, ainsi qu'une plateforme de compilation SaaS : [PhoneGap Build](https://build.phonegap.com).
+[Cordova](http://cordova.apache.org), plus connue sous le nom de [PhoneGap](http://phonegap.com), permet de créer des applications mobiles en HTML et Javascript pour les différentes plateformes qui existent.
+Cela permet de déployer une application iOS ou Android sans écrire une seule ligne d'Objective-C ou de Java.
 
-Cordova permet de créer des applications mobiles en HTML et Javascript pour les différentes plateformes qui existent.
-Ce qui permet de déployer une application iOS ou Android sans écrire une seule ligne d'Objective-C ou de Java.
+En 2011, le code de PhoneGap a été donné à la fondation Apache et est devenu Cordova. PhoneGap n'est maintenant qu'une surcouche à Cordova associée à une plateforme de compilation SaaS : [PhoneGap Build](https://build.phonegap.com).
 
 Cordova propose un système de plugins pour accéder aux fonctions natives des appareils en utilisant une API la plus commune possible entre les plateformes.
 Certains plugins sont officiels et développés sous la bannière de la fondation Apache (pour accéder au système de fichiers, à l'état des connexions, …) et supportent toutes les plateformes, d'autres sont communautaires (achats in-app, …) et ne supportent que quelques plateformes (généralement iOS, Android et Windows dans cet ordre).
