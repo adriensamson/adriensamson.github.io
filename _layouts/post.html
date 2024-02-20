@@ -8,17 +8,12 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_monokai.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     {% case page.language %}
     {% when 'fr' %}
     <title>{{ page.title }} par Adrien Samson</title>
     {% else %}
     <title>{{ page.title }} by Adrien Samson</title>
     {% endcase %}
-
-    {% include ga.html %}
   </head>
 
   <body>
@@ -30,7 +25,7 @@
           {% when 'fr' %}
           <h1>{{ page.title }}</h1> par <a href="/">Adrien Samson</a> le {{ page.date | date_to_string }}
           {% else %}
-          <h1>{{ page.title }}</h1> by <a href="/index_en.html">Adrien Samson</a> on {{ page.date | date_to_string }}
+          <h1>{{ page.title }}</h1> by <a href="/">Adrien Samson</a> on {{ page.date | date_to_string }}
           {% endcase %}
         </header>
 
@@ -47,22 +42,12 @@
         {{ content }}
         </section>
 
-        <hr />
-
-        <section id="downloads" class="clearfix">
-          {% case page.language %}
-          {% when 'fr' %}
-          <a href="https://github.com/adriensamson/adriensamson.github.io/tree/master/{{ page.path }}" id="view-on-github" class="button">
-            <span>Voir sur GitHub</span>
-          </a>
-          <a href="mailto:pro@adriensamson.fr?subject=Re: {{ page.title }}" class="button"><span>Une remarque ?</span></a>
-          {% else %}
-          <a href="https://github.com/adriensamson/adriensamson.github.io/tree/master/{{ page.path }}"
-             id="view-on-github" class="button">
-            <span>View on GitHub</span>
-          </a>
-          {% endcase %}
-        </section>
+        <hr>
+        <p>
+          <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+          <a href="mailto:pro@adriensamson.fr">Email</a> |
+          <a href="https://github.com/adriensamson">GitHub</a>
+        </p>
       </div>
     </div>
   </body>

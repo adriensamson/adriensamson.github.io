@@ -9,11 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen,print" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_monokai.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
     <title>Adrien Samson{% if page.title %} - {{ page.title }}{% endif %}</title>
-    {% include ga.html %}
   </head>
 
   <body>
@@ -22,7 +18,7 @@
 
         <header>
           <h1>
-            <a href="{% if page.language == 'fr'%}/{% else %}/index_en.html{% endif %}">Adrien Samson</a>
+            <a href="/">Adrien Samson</a>
             {% if page.title %}
             <br/>{{ page.title }}
             {% endif %}
@@ -39,17 +35,6 @@
 
         <section id="main_content">
         {{ content }}
-        </section>
-
-        <section id="downloads" class="clearfix">
-          <hr/>
-          {% case page.language %}
-          {% when 'fr' %}
-          <a href="https://github.com/adriensamson" id="view-on-github"
-             class="button"><span>Me trouver sur GitHub</span></a>
-          {% else %}
-            <a href="https://github.com/adriensamson" id="view-on-github" class="button"><span>Find me on GitHub</span></a>
-          {% endcase %}
         </section>
       </div>
     </div>

@@ -1,35 +1,34 @@
 ---
 layout: default
 language: fr
-other_languages:
-  en: index_en.html
 ---
 <h2>Qui suis-je ?</h2>
 
 <p>
-  Pendant 5 ans en tant que développeur web, j'ai construit des sites e-commerce avec <a href="http://magento.com">Magento</a>,
-  des API REST avec <a href="http://symfony.com">Symfony2</a>
-  et des webviews mobiles avec <a href="https://angularjs.org">AngularJS</a>.
+  Durant les années 2010, en tant que développeur web, j'ai construit des sites e-commerce avec <a href="http://magento.com">Magento</a>,
+  des API REST avec <a href="https://symfony.com">Symfony</a>
+  et des webviews mobiles avec <a href="https://angular.io">Angular</a> et Cordova.
 </p>
 <p>
-  Je propose maintenant mes services de consultant web indépendant.
+  Depuis 2020, je suis aussi responsable de la chaine logistique dans une TPE.
 </p>
-<p><a href="offres.html">En savoir plus</a> | <a href="cv.html">Mon CV</a></p>
+<p><a href="cv.html">Mon CV</a></p>
 
 <h2>Blog posts</h2>
 <ul class="posts">
 {% for post in site.posts %}
   {% if post.language == 'fr' %}
-    <li>{{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title }}</a></li>
-  {% elsif post.other_languages.fr == null %}
-  <li>{{ post.date | date_to_string }} [{{post.language}}] <a href="{{ post.url }}">{{ post.title }}</a></li>
+    <li>
+      {{ post.date | date_to_string }}
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
   {% endif %}
 {% endfor %}
 </ul>
 
 <h2>Contact</h2>
 <p>
-  <a href="https://twitter.com/kyklydse">Twitter</a> |
   <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
-  <a href="mailto:pro@adriensamson.fr">Email</a>
+  <a href="mailto:pro@adriensamson.fr">Email</a> |
+  <a href="https://github.com/adriensamson">GitHub</a>
 </p>
