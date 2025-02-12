@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Adrien Samson</title>
+    <style>
+        html {
+            background: #eeeeee;
+            color: #000000;
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+        body {
+            background: white;
+            width: 47.5rem;
+            margin: 1rem auto;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        div.chronology {
+            display: grid;
+            grid-template-columns: [year] 3rem [track1] 2rem [track2] 2rem [track3] 2rem [track4 text] 1fr;
+        }
+        div.chronology div.year {
+            grid-column: year;
+        }
+        div.chronology .text {
+            grid-column: text;
+        }
+        div.chronology div.point.ogga {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%231a3b56"/></svg>') no-repeat center / 1rem,
+                url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%231a3b56"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.track.ogga {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%231a3b56"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.point.indep {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="green"/></svg>') no-repeat center / 1rem,
+            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="green"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.track.indep {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="green"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.point.smile {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%23ff8054"/></svg>') no-repeat center / 1rem,
+            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%23ff8054"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.track.smile {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%23ff8054"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.point.ecl {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%2380242E"/></svg>') no-repeat center / 1rem,
+            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%2380242E"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.track.ecl {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%2380242E"/></svg>') repeat-y center / 1rem;
+        }
+        div.chronology div.fork.smile-indep {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="green" fill="none"/></svg>') no-repeat center / 100%;
+            height: 2rem;
+        }
+        div.chronology div.fork.indep-ogga {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="green"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100%;
+            height: 2rem;
+            transform: scale(-1, 1);
+        }
+        div.chronology div.fork.ogga {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="%231a3b56"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100% 100%;
+            height: 2rem;
+        }
+        div.chronology div.fork.ogga2 {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 30 10"><rect x="-.5" y="0" width="1" height="10" fill="%231a3b56"/><path d="M 0 10 C 0 5, 20 5, 20 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100% 100%;
+            height: 2rem;
+        }
+        div.company {
+            grid-column: text;
+            color: #555555;
+        }
+        div.company.ogga strong {
+            color: #1a3b56;
+        }
+        div.company.indep strong {
+            color: green;
+        }
+        div.company.smile strong {
+            color: #ff8054;
+        }
+        div.company.ecl strong {
+            color: #80242E;
+        }
+
+        div.chronology div.track1 {
+            grid-column: track1;
+        }
+        div.chronology div.track2 {
+            grid-column: track2;
+        }
+        div.chronology div.track3 {
+            grid-column: track3;
+        }
+        div.chronology div.track1-2 {
+            grid-column: track1 / track3;
+        }
+        div.chronology div.track1-3 {
+            grid-column: track1 / track4;
+        }
+    </style>
+    <style>
+        @media print {
+            html {
+                background: none;
+            }
+            body {
+                margin: 0;
+                background: none;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <h1>Adrien Samson</h1>
+            <div>Lyon 7</div>
+            <div><a href="mailto:pro@adriensamson.fr">pro@adriensamson.fr</a></div>
+        </div>
+        <div class="right"></div>
+    </header>
+    <main>
+        <section>
+            <h2>Parcours professionnel</h2>
+            <div class="chronology">
+
+                <div class="track ogga track1"></div>
+                <div class="track ogga track2"></div>
+                <div class="track ogga track3"></div>
+                <div class="company ogga"><strong>OGGA</strong> Conception et développement de solutions connectées pour la performance énergétique</div>
+
+                <div class="year">2024</div>
+                <div class="track ogga track1"></div>
+                <div class="point ogga track2"></div>
+                <div class="track ogga track3"></div>
+                <div class="text">LeadDev embarqué</div>
+                <div class="fork ogga track1-2"></div>
+                <div class="track ogga track3"></div>
+
+                <div class="year">2022</div>
+                <div class="track ogga track1"></div>
+                <div class="point ogga track3"></div>
+                <div class="text">Directeur des opérations : Planification des productions et des achats</div>
+
+                <div class="year">2021</div>
+                <div class="point ogga track1"></div>
+                <div class="track ogga track3"></div>
+                <div class="text">LeadDev back et front, CI/CD,  système interne</div>
+
+                <div class="year">2020</div>
+                <div class="track ogga track1"></div>
+                <div class="point ogga track3"></div>
+                <div class="text">Suivi logistique : production chez les sous-traitants, préparation en atelier, réceptions et expéditions - Mise en place ERP</div>
+                <div class="fork ogga2 track1-3"></div>
+
+
+                <div class="track ogga track1"></div>
+                <div class="track indep track2"></div>
+                <div class="company indep"><strong>Indépendant</strong> Développement d'applications mobiles</div>
+
+                <div class="year">2019</div>
+                <div class="track ogga track1"></div>
+                <div class="point indep track2"></div>
+                <div class="text">AgroTires - appli mobile</div>
+
+                <div class="year">2017</div>
+                <div class="track ogga track1"></div>
+                <div class="point indep track2"></div>
+                <div class="text">MyMentalTraining / Alix / Maternity - backend et appli mobile</div>
+
+                <div class="year">2016</div>
+                <div class="point ogga track1"></div>
+                <div class="track indep track2"></div>
+                <div class="text">Développeur web fullstack : backend, application mobile et web plateforme</div>
+
+                <div class="fork indep-ogga track1-2"></div>
+
+                <div class="year">2015</div>
+                <div class="point indep track2"></div>
+                <div class="text">AuxPetitsOignons - appli mobile</div>
+
+                <div class="fork smile-indep track1-2"></div>
+
+                <div class="track smile track1"></div>
+                <div class="company smile"><strong>Smile</strong> Intégrateur Web de solutions open-source</div>
+
+                <div class="year">2014</div>
+                <div class="point smile track1"></div>
+                <div class="text">Symfony - API REST pour l'appli mobile de 6play, initialisation de la refonte 6play en React</div>
+
+                <div class="year">2013</div>
+                <div class="point smile track1"></div>
+                <div class="text">M6web dév PHP - montée de version des sites de chaines</div>
+
+                <div class="year">2012</div>
+                <div class="point smile track1"></div>
+                <div class="text">decitre.fr migration des données</div>
+
+                <div class="year">2010</div>
+                <div class="point smile track1"></div>
+                <div class="text">Développeur Magento</div>
+
+                <div class="track ecl track1"></div>
+                <div class="company ecl"><strong>Ecole Centrale Lyon</strong></div>
+
+                <div class="year">2010</div>
+                <div class="point ecl track1"></div>
+                <div class="text">Diplome</div>
+
+                <div class="year">2009</div>
+                <div class="point ecl track1"></div>
+                <div class="text">Stage développement d'une application métier de devis d'alliances et bijoux</div>
+
+                <div class="year">2009</div>
+                <div class="point ecl track1"></div>
+                <div class="text">Participation à la coupe de France de robotique</div>
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>
