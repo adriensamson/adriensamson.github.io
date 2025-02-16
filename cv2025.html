@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>CV Adrien Samson</title>
     <style>
+        @page {
+            size: A4;
+            margin: 1rem;
+        }
         html {
             background: #eeeeee;
             color: #000000;
@@ -17,22 +21,64 @@
             padding: 1rem;
             box-sizing: border-box;
         }
+        header {
+            display: flex;
+        }
+        header > div {
+            flex: 1
+        }
+        header > div.photo {
+            flex: 0 0 7rem;
+            margin-right: 2rem;
+        }
+        header > div.photo > img {
+            width: 100%;
+            border-radius: 100%;
+        }
+        header h1 {
+            margin: 0;
+        }
+
+        small {
+            color: #555555;
+            font-size: .9rem;
+        }
+
+        dl {
+            margin: .5rem 0;
+        }
+        dl:has(~ .fork) {
+            margin-bottom: 0;
+        }
+        dl.under-fork {
+            margin-top: 0;
+        }
+        dt {
+            font-weight: bold;
+        }
+        dd {
+            margin-left: 1.5rem;
+        }
+
         div.chronology {
             display: grid;
             grid-template-columns: [year] 3rem [track1] 2rem [track2] 2rem [track3] 2rem [track4 text] 1fr;
         }
         div.chronology div.year {
             grid-column: year;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
         }
         div.chronology .text {
             grid-column: text;
         }
         div.chronology div.point.ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%231a3b56"/></svg>') no-repeat center / 1rem,
-                url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%231a3b56"/></svg>') repeat-y center / 1rem;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%232c4863"/></svg>') no-repeat center / 1rem,
+                url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%232c4863"/></svg>') repeat-y center / 1rem;
         }
         div.chronology div.track.ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%231a3b56"/></svg>') repeat-y center / 1rem;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%232c4863"/></svg>') repeat-y center / 1rem;
         }
         div.chronology div.point.indep {
             background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="green"/></svg>') no-repeat center / 1rem,
@@ -60,24 +106,27 @@
             height: 2rem;
         }
         div.chronology div.fork.indep-ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="green"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100%;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="green"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100%;
             height: 2rem;
             transform: scale(-1, 1);
         }
         div.chronology div.fork.ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="%231a3b56"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100% 100%;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
             height: 2rem;
         }
         div.chronology div.fork.ogga2 {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 30 10"><rect x="-.5" y="0" width="1" height="10" fill="%231a3b56"/><path d="M 0 10 C 0 5, 20 5, 20 0" stroke-width="1" stroke="%231a3b56" fill="none"/></svg>') no-repeat center / 100% 100%;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 30 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 20 5, 20 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
             height: 2rem;
         }
         div.company {
             grid-column: text;
-            color: #555555;
+            font-size: 130%;
+        }
+        div.company strong {
+            margin-right: 1rem;
         }
         div.company.ogga strong {
-            color: #1a3b56;
+            color: #2c4863;
         }
         div.company.indep strong {
             color: green;
@@ -120,14 +169,26 @@
 </head>
 <body>
     <header>
+        <div class="photo">
+            <img src="images/portrait.jpg" alt="Adrien Samson">
+        </div>
         <div class="left">
             <h1>Adrien Samson</h1>
-            <div>Lyon 7</div>
+            <em>37 ans</em>
+            <address>69007 Lyon</address>
             <div><a href="mailto:pro@adriensamson.fr">pro@adriensamson.fr</a></div>
         </div>
-        <div class="right"></div>
     </header>
     <main>
+        <section>
+            <h2>Ingénieur expert développement logiciel</h2>
+            <p>
+                Développeur professionnel depuis 15 ans, j'ai eu l'occasion de travailler sur de nombreux terrains : back et front sur le web puis les applications mobiles et enfin en embarqué.
+                Au-delà du développement en lui-même, j'ai de solides connaissances en administration linux et protocoles réseaux.
+                J'ai porté l'accent sur la qualité en promouvant les bonnes pratiques, les tests et l'intégration continue afin d'obtenir des produits plus maintenables et durables.
+                Mon incursion dans la logistique m'a permis de renforcer ma vision pluridisciplinaire axée sur le métier et la valeur que doivent apporter les logiciels.
+            </p>
+        </section>
         <section>
             <h2>Parcours professionnel</h2>
             <div class="chronology">
@@ -135,95 +196,176 @@
                 <div class="track ogga track1"></div>
                 <div class="track ogga track2"></div>
                 <div class="track ogga track3"></div>
-                <div class="company ogga"><strong>OGGA</strong> Conception et développement de solutions connectées pour la performance énergétique</div>
+                <div class="company ogga"><strong>OGGA</strong> <small>Solutions connectées pour la performance énergétique</small></div>
 
                 <div class="year">2024</div>
                 <div class="track ogga track1"></div>
                 <div class="point ogga track2"></div>
                 <div class="track ogga track3"></div>
-                <div class="text">LeadDev embarqué</div>
+                <dl class="text">
+                    <dt>LeadDev Logiciel embarqué</dt>
+                    <dd>Mise en place de l'intégration continue</dd>
+                    <dd>Référent technique pour le chiffrage des évolutions</dd>
+                    <dd>Archéologie et rétro-documentation</dd>
+                    <dd>Définition du plan de réduction de la dette technique</dd>
+                </dl>
                 <div class="fork ogga track1-2"></div>
                 <div class="track ogga track3"></div>
 
                 <div class="year">2022</div>
                 <div class="track ogga track1"></div>
                 <div class="point ogga track3"></div>
-                <div class="text">Directeur des opérations : Planification des productions et des achats</div>
-
+                <dl class="text under-fork">
+                    <dt>Directeur des opérations</dt>
+                    <dd>Planification des productions et des achats à partir des prévisions de ventes</dd>
+                    <dd>Production et suivi des indicateurs de délai, niveau de stock, marge commerciale</dd>
+                </dl>
                 <div class="year">2021</div>
                 <div class="point ogga track1"></div>
                 <div class="track ogga track3"></div>
-                <div class="text">LeadDev back et front, CI/CD,  système interne</div>
+                <dl class="text">
+                    <dt>LeadDev fullstack web</dt>
+                    <dd>Mise en place de l'intégration continue et du déploiement continu</dd>
+                    <dd>Encadrement et formation d'une alternante</dd>
+                    <dd>Analyse et chiffrage des besoins clients</dd>
+                </dl>
 
                 <div class="year">2020</div>
                 <div class="track ogga track1"></div>
                 <div class="point ogga track3"></div>
-                <div class="text">Suivi logistique : production chez les sous-traitants, préparation en atelier, réceptions et expéditions - Mise en place ERP</div>
+                <dl class="text">
+                    <dt>Responsable logistique<dt>
+                    <dd>Mise en place d'un ERP</dd>
+                    <dd>Suivi des réceptions et organisation des expéditions</dd>
+                    <dd>Organisation des productions en atelier ou chez les sous-traitants</dd>
+                </dl>
                 <div class="fork ogga2 track1-3"></div>
 
 
                 <div class="track ogga track1"></div>
                 <div class="track indep track2"></div>
-                <div class="company indep"><strong>Indépendant</strong> Développement d'applications mobiles</div>
+                <div class="company indep"><strong>Indépendant</strong></div>
 
                 <div class="year">2019</div>
                 <div class="track ogga track1"></div>
                 <div class="point indep track2"></div>
-                <div class="text">AgroTires - appli mobile</div>
-
+                <dl class="text">
+                    <dt>Dev application mobile</dt>
+                    <dd>AgroTires <small>(pression optimale des pneus agricoles)</small></dd>
+                </dl>
                 <div class="year">2017</div>
                 <div class="track ogga track1"></div>
                 <div class="point indep track2"></div>
-                <div class="text">MyMentalTraining / Alix / Maternity - backend et appli mobile</div>
+                <dl class="text">
+                    <dt>Dev backend et application mobile</dt>
+                    <dd>MyMentalTraining, Alix, Maternity <small>(développement personnel)</small></dd>
+                </dl>
 
                 <div class="year">2016</div>
                 <div class="point ogga track1"></div>
                 <div class="track indep track2"></div>
-                <div class="text">Développeur web fullstack : backend, application mobile et web plateforme</div>
+                <dl class="text">
+                    <dt>Développeur web fullstack</dt>
+                    <dd>Réalisation du backend pour l'accès à distance au thermostat connecté</dd>
+                    <dd>Maintenance de l'application mobile</dd>
+                    <dd>Création d'une plateforme bailleurs</dd>
+                </dl>
 
                 <div class="fork indep-ogga track1-2"></div>
 
                 <div class="year">2015</div>
                 <div class="point indep track2"></div>
-                <div class="text">AuxPetitsOignons - appli mobile</div>
+                <dl class="text under-fork">
+                    <dt>Dev appli mobile</dt>
+                    <dd>Finalisation et publication d'une application de recettes de cuisine - AuxPetitsOignons</dd>
+                    <dd>Réalisation d'une application dédiée aux menus de fêtes</dd>
+                </dl>
 
                 <div class="fork smile-indep track1-2"></div>
 
                 <div class="track smile track1"></div>
-                <div class="company smile"><strong>Smile</strong> Intégrateur Web de solutions open-source</div>
+                <div class="company smile"><strong>Smile</strong> <small>Intégrateur de solutions web open-source</small></div>
 
-                <div class="year">2014</div>
+                <div class="year"><span>2014</span><span>2013</span></div>
                 <div class="point smile track1"></div>
-                <div class="text">Symfony - API REST pour l'appli mobile de 6play, initialisation de la refonte 6play en React</div>
+                <dl class="text">
+                    <dt>Développeur web fullstack chez M6web</dt>
+                    <dd>Initialisation de la refonte 6play en React</dd>
+                    <dd>Création d'API REST pour l'application mobile</dd>
+                    <dd>Mise à jour PHP des sites de chaînes</dd>
+                </dl>
 
-                <div class="year">2013</div>
+                <div class="year"><span>2012</span><span>2011</span></div>
                 <div class="point smile track1"></div>
-                <div class="text">M6web dév PHP - montée de version des sites de chaines</div>
-
-                <div class="year">2012</div>
-                <div class="point smile track1"></div>
-                <div class="text">decitre.fr migration des données</div>
-
-                <div class="year">2010</div>
-                <div class="point smile track1"></div>
-                <div class="text">Développeur Magento</div>
+                <dl class="text">
+                    <dt>Développeur Magento</dt>
+                    <dd>Réalisation de sites e-commerces <small>(MadeInDesign, PourMonBureau, Decitre)</small></dd>
+                    <dd>Migration des données depuis l'ancien site de Decitre</dd>
+                </dl>
 
                 <div class="track ecl track1"></div>
-                <div class="company ecl"><strong>Ecole Centrale Lyon</strong></div>
+                <div class="company ecl"><strong>École Centrale Lyon</strong></div>
 
-                <div class="year">2010</div>
+                <div class="year"><span>2010</span><span>2007</span></div>
                 <div class="point ecl track1"></div>
-                <div class="text">Diplome</div>
-
-                <div class="year">2009</div>
-                <div class="point ecl track1"></div>
-                <div class="text">Stage développement d'une application métier de devis d'alliances et bijoux</div>
-
-                <div class="year">2009</div>
-                <div class="point ecl track1"></div>
-                <div class="text">Participation à la coupe de France de robotique</div>
+                <dl class="text">
+                    <dt>Élève ingénieur diplômé en 2010</dt>
+                    <dd>Développement d'une application métier de devis pour un bijoutier</dd>
+                    <dd>Participation à la coupe de France de robotique</dd>
+                </dl>
 
             </div>
+        </section>
+
+        <section>
+            <h2>Technologies</h2>
+
+            <table>
+                <thead>
+                <tr><th>Domaine</th><th>Utilisateur</th><th>Avancé</th><th>Expert</th></tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Langages</th>
+                    <td>Python, C, bash</td>
+                    <td>HTML, CSS, SQL, Rust</td>
+                    <td>
+                        Typescript, PHP
+                    </td>
+                </tr>
+                <tr>
+                    <th>Framework</th>
+                    <td>Gtk</td>
+                    <td>NodeJS</td>
+                    <td>Symfony, Angular</td>
+                </tr>
+                <tr>
+                    <th>Protocoles</th>
+                    <td></td>
+                    <td>Enocean, LoraWAN, Modbus</td>
+                    <td>HTTP, TCP</td>
+                </tr>
+                <tr>
+                    <th>Outils</th>
+                    <td>ansible, nginx</td>
+                    <td>debian, systemd, openssl, openssh</td>
+                    <td>git</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Compétences</h2>
+            <ul>
+                <li>Rigueur</li>
+                <li>Polyvalence</li>
+                <li>Agilité</li>
+            </ul>
+            <h2>Langues</h2>
+            <ul>
+                <li>Français</li>
+                <li>Anglais</li>
+            </ul>
         </section>
     </main>
 </body>
