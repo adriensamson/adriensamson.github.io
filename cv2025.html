@@ -13,6 +13,9 @@
             --indep: green;
             --smile: #ff8054;
             --ecl: #80242E;
+
+            --accent-fg: oklch(25% 0.085 283);
+            --accent-bg: oklch(90% 0.085 283);
         }
         html {
             background: #eeeeee;
@@ -27,22 +30,34 @@
             padding: 1rem;
             box-sizing: border-box;
         }
+        h2 {
+            margin: 1rem 0 .5rem;
+            font-weight: 600;
+            color: var(--accent-fg);
+        }
+        p {
+            margin: .5rem 0;
+        }
         header {
             display: flex;
         }
         header > div {
             flex: 1
         }
-        header > div.photo {
-            flex: 0 0 7rem;
-            margin-right: 2rem;
+        #name {
+            flex: 0 0 12rem;
+            margin-left: 4rem;
         }
-        header > div.photo > img {
-            width: 100%;
+        #name div.photo {
+            text-align: center;
+        }
+        #name div.photo > img {
+            width: 80%;
             border-radius: 100%;
         }
         header h1 {
             margin: 0;
+            color: var(--accent-fg);
         }
 
         small {
@@ -60,10 +75,49 @@
             margin-top: 0;
         }
         dt {
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--accent-fg);
         }
         dd {
             margin-left: 1.5rem;
+        }
+        #competences {
+
+        }
+        #technologies {
+            /*flex: 2;*/
+        }
+        #technologies ~ div {
+            flex: 1;
+            display: flex;
+            /*flex-direction: column;*/
+        }
+        #softskills {
+            flex: 2
+        }
+        #softskills ~ div {
+            flex: 1;
+        }
+
+        #technologies div.table {
+            display: grid;
+            grid-template-columns: min-content repeat(3, 1fr);
+        }
+        #technologies div.table div.header {
+            font-weight: 500;
+        }
+        #technologies div.table div {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+        }
+        #technologies div.table div span {
+            font-size: .9rem;
+            background: var(--accent-bg);
+            border-radius: 1em;
+            padding: 0 .4em;
+            margin: .1em;
         }
 
         div.chronology {
@@ -78,10 +132,6 @@
         }
         div.chronology .text {
             grid-column: text;
-        }
-        div.chronology div.point.ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%232c4863"/></svg>') no-repeat center / 1rem,
-                url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%232c4863"/></svg>') repeat-y center / 1rem;
         }
         div.chronology div.track {
             position: relative;
@@ -189,25 +239,114 @@
 </head>
 <body>
     <header>
-        <div class="photo">
-            <img src="images/portrait.jpg" alt="Adrien Samson">
-        </div>
-        <div class="left">
-            <h1>Adrien Samson</h1>
-            <em>37 ans</em>
-            <address>69007 Lyon</address>
-            <div><a href="mailto:pro@adriensamson.fr">pro@adriensamson.fr</a></div>
-        </div>
-    </header>
-    <main>
         <section>
-            <h2>Ingénieur expert développement logiciel</h2>
+            <h2>Lead / Expert logiciel</h2>
             <p>
                 Développeur professionnel depuis 15 ans, j'ai eu l'occasion de travailler sur de nombreux terrains : back et front sur le web puis les applications mobiles et enfin en embarqué.
                 Au-delà du développement en lui-même, j'ai de solides connaissances en administration linux et protocoles réseaux.
                 J'ai porté l'accent sur la qualité en promouvant les bonnes pratiques, les tests et l'intégration continue afin d'obtenir des produits plus maintenables et durables.
                 Mon incursion dans la logistique m'a permis de renforcer ma vision pluridisciplinaire axée sur le métier et la valeur que doivent apporter les logiciels.
             </p>
+        </section>
+        <section id="name">
+            <div class="photo">
+                <img src="images/portrait.jpg" alt="Adrien Samson">
+            </div>
+            <div class="left">
+                <h1>Adrien Samson</h1>
+                <em>37 ans</em>
+                <address>69007 Lyon</address>
+                <div><a href="mailto:pro@adriensamson.fr">pro@adriensamson.fr</a></div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <section id="competences">
+            <div id="technologies">
+                <h2>Technologies</h2>
+
+                <div class="table">
+                    <div class="header">Domaine</div>
+                    <div class="header">Utilisateur</div>
+                    <div class="header">Avancé</div>
+                    <div class="header">Expert</div>
+
+                    <div class="header">Langages</div>
+                    <div>
+                        <span>Python</span>
+                        <span>C</span>
+                        <span>bash</span>
+                    </div>
+                    <div>
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>SQL</span>
+                        <span>Rust</span>
+                    </div>
+                    <div>
+                        <span>Typescript</span>
+                        <span>PHP</span>
+                    </div>
+
+                    <div class="header">Framework</div>
+                    <div>
+                        <span>yocto</span>
+                        <span>Gtk</span>
+                    </div>
+                    <div>
+                        <span>NodeJS</span>
+                    </div>
+                    <div>
+                        <span>Angular</span>
+                        <span>Symfony</span>
+                    </div>
+
+                    <div class="header">Protocoles</div>
+                    <div></div>
+                    <div>
+                        <span>Enocean</span>
+                        <span>LoraWAN</span>
+                        <span>Modbus</span>
+                    </div>
+                    <div>
+                        <span>HTTP</span>
+                        <span>TCP</span>
+                    </div>
+
+                    <div class="header">Outils</div>
+                    <div>
+                        <span>ansible</span>
+                        <span>nginx</span>
+                    </div>
+                    <div>
+                        <span>debian</span>
+                        <span>systemd</span>
+                        <span>openssl</span>
+                        <span>openssh</span>
+                    </div>
+                    <div>
+                        <span>git</span>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div id="softskills">
+                    <h2>Compétences</h2>
+                    <ul>
+                        <li>Rigueur</li>
+                        <li>Polyvalence</li>
+                        <li>Agilité</li>
+                    </ul>
+                </div>
+                <div id="languages">
+                    <h2>Langues</h2>
+                    <ul>
+                        <li>Français</li>
+                        <li>Anglais</li>
+                    </ul>
+                </div>
+            </div>
         </section>
         <section>
             <h2>Parcours professionnel</h2>
@@ -335,57 +474,6 @@
                 </dl>
 
             </div>
-        </section>
-
-        <section>
-            <h2>Technologies</h2>
-
-            <table>
-                <thead>
-                <tr><th>Domaine</th><th>Utilisateur</th><th>Avancé</th><th>Expert</th></tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>Langages</th>
-                    <td>Python, C, bash</td>
-                    <td>HTML, CSS, SQL, Rust</td>
-                    <td>
-                        Typescript, PHP
-                    </td>
-                </tr>
-                <tr>
-                    <th>Framework</th>
-                    <td>Gtk</td>
-                    <td>NodeJS</td>
-                    <td>Symfony, Angular</td>
-                </tr>
-                <tr>
-                    <th>Protocoles</th>
-                    <td></td>
-                    <td>Enocean, LoraWAN, Modbus</td>
-                    <td>HTTP, TCP</td>
-                </tr>
-                <tr>
-                    <th>Outils</th>
-                    <td>ansible, nginx</td>
-                    <td>debian, systemd, openssl, openssh</td>
-                    <td>git</td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
-        <section>
-            <h2>Compétences</h2>
-            <ul>
-                <li>Rigueur</li>
-                <li>Polyvalence</li>
-                <li>Agilité</li>
-            </ul>
-            <h2>Langues</h2>
-            <ul>
-                <li>Français</li>
-                <li>Anglais</li>
-            </ul>
         </section>
     </main>
 </body>
