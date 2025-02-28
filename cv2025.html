@@ -8,6 +8,12 @@
             size: A4;
             margin: 1rem;
         }
+        :root {
+            --ogga: #2c4863;
+            --indep: green;
+            --smile: #ff8054;
+            --ecl: #80242E;
+        }
         html {
             background: #eeeeee;
             color: #000000;
@@ -77,29 +83,43 @@
             background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%232c4863"/></svg>') no-repeat center / 1rem,
                 url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%232c4863"/></svg>') repeat-y center / 1rem;
         }
-        div.chronology div.track.ogga {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%232c4863"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track {
+            position: relative;
         }
-        div.chronology div.point.indep {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="green"/></svg>') no-repeat center / 1rem,
-            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="green"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="black"/></svg>') repeat-y center / 1rem;
         }
-        div.chronology div.track.indep {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="green"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track.ogga:before {
+            background-color: var(--ogga);
         }
-        div.chronology div.point.smile {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%23ff8054"/></svg>') no-repeat center / 1rem,
-            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%23ff8054"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track.indep:before {
+            background-color: var(--indep);
         }
-        div.chronology div.track.smile {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%23ff8054"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track.smile:before {
+            background-color: var(--smile);
         }
-        div.chronology div.point.ecl {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="%2380242E"/></svg>') no-repeat center / 1rem,
-            url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%2380242E"/></svg>') repeat-y center / 1rem;
+        div.chronology div.track.ecl:before {
+            background-color: var(--ecl);
         }
-        div.chronology div.track.ecl {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="%2380242E"/></svg>') repeat-y center / 1rem;
+        div.chronology div.point {
+            position: relative;
+        }
+        div.chronology div.point:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="black"/></svg>') no-repeat center / 1rem;
         }
         div.chronology div.fork.smile-indep {
             background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="green" fill="none"/></svg>') no-repeat center / 100%;
@@ -126,16 +146,16 @@
             margin-right: 1rem;
         }
         div.company.ogga strong {
-            color: #2c4863;
+            color: var(--ogga);
         }
         div.company.indep strong {
-            color: green;
+            color: var(--indep);
         }
         div.company.smile strong {
-            color: #ff8054;
+            color: var(--smile);
         }
         div.company.ecl strong {
-            color: #80242E;
+            color: var(--ecl);
         }
 
         div.chronology div.track1 {
@@ -200,7 +220,7 @@
 
                 <div class="year">2024</div>
                 <div class="track ogga track1"></div>
-                <div class="point ogga track2"></div>
+                <div class="track point ogga track2"></div>
                 <div class="track ogga track3"></div>
                 <dl class="text">
                     <dt>LeadDev Logiciel embarqué</dt>
@@ -214,14 +234,14 @@
 
                 <div class="year">2022</div>
                 <div class="track ogga track1"></div>
-                <div class="point ogga track3"></div>
+                <div class="track point ogga track3"></div>
                 <dl class="text under-fork">
                     <dt>Directeur des opérations</dt>
                     <dd>Planification des productions et des achats à partir des prévisions de ventes</dd>
                     <dd>Production et suivi des indicateurs de délai, niveau de stock, marge commerciale</dd>
                 </dl>
                 <div class="year">2021</div>
-                <div class="point ogga track1"></div>
+                <div class="track point ogga track1"></div>
                 <div class="track ogga track3"></div>
                 <dl class="text">
                     <dt>LeadDev fullstack web</dt>
@@ -232,7 +252,7 @@
 
                 <div class="year">2020</div>
                 <div class="track ogga track1"></div>
-                <div class="point ogga track3"></div>
+                <div class="track point ogga track3"></div>
                 <dl class="text">
                     <dt>Responsable logistique<dt>
                     <dd>Mise en place d'un ERP</dd>
@@ -248,21 +268,21 @@
 
                 <div class="year">2019</div>
                 <div class="track ogga track1"></div>
-                <div class="point indep track2"></div>
+                <div class="track point indep track2"></div>
                 <dl class="text">
                     <dt>Dev application mobile</dt>
                     <dd>AgroTires <small>(pression optimale des pneus agricoles)</small></dd>
                 </dl>
                 <div class="year">2017</div>
                 <div class="track ogga track1"></div>
-                <div class="point indep track2"></div>
+                <div class="track point indep track2"></div>
                 <dl class="text">
                     <dt>Dev backend et application mobile</dt>
                     <dd>MyMentalTraining, Alix, Maternity <small>(développement personnel)</small></dd>
                 </dl>
 
                 <div class="year">2016</div>
-                <div class="point ogga track1"></div>
+                <div class="track point ogga track1"></div>
                 <div class="track indep track2"></div>
                 <dl class="text">
                     <dt>Développeur web fullstack</dt>
@@ -274,7 +294,7 @@
                 <div class="fork indep-ogga track1-2"></div>
 
                 <div class="year">2015</div>
-                <div class="point indep track2"></div>
+                <div class="track point indep track2"></div>
                 <dl class="text under-fork">
                     <dt>Dev appli mobile</dt>
                     <dd>Finalisation et publication d'une application de recettes de cuisine - AuxPetitsOignons</dd>
@@ -287,7 +307,7 @@
                 <div class="company smile"><strong>Smile</strong> <small>Intégrateur de solutions web open-source</small></div>
 
                 <div class="year"><span>2014</span><span>2013</span></div>
-                <div class="point smile track1"></div>
+                <div class="track point smile track1"></div>
                 <dl class="text">
                     <dt>Développeur web fullstack chez M6web</dt>
                     <dd>Initialisation de la refonte 6play en React</dd>
@@ -296,7 +316,7 @@
                 </dl>
 
                 <div class="year"><span>2012</span><span>2011</span></div>
-                <div class="point smile track1"></div>
+                <div class="track point smile track1"></div>
                 <dl class="text">
                     <dt>Développeur Magento</dt>
                     <dd>Réalisation de sites e-commerces <small>(MadeInDesign, PourMonBureau, Decitre)</small></dd>
@@ -307,7 +327,7 @@
                 <div class="company ecl"><strong>École Centrale Lyon</strong></div>
 
                 <div class="year"><span>2010</span><span>2007</span></div>
-                <div class="point ecl track1"></div>
+                <div class="track point ecl track1"></div>
                 <dl class="text">
                     <dt>Élève ingénieur diplômé en 2010</dt>
                     <dd>Développement d'une application métier de devis pour un bijoutier</dd>
