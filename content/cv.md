@@ -1,6 +1,5 @@
 ---
-layout: default
-language: fr
+
 ---
 <h2>Expériences professionnelles</h2>
 
