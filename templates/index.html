@@ -15,7 +15,10 @@
 
 <h2>Blog posts</h2>
 <ul class="posts">
-    <!-- TODO -->
+    {% set section = get_section(path="blog/_index.md") %}
+    {% for post in section.pages %}
+    <li>{{ post.date | date(format="%d %h %Y", locale="fr_FR") }} <a href="{{ post.permalink }}">{{ post.title }}</a></li>
+    {% endfor %}
 </ul>
 
 <h2>Contact</h2>

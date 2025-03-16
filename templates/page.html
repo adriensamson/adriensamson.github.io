@@ -1,5 +1,21 @@
 {% extends 'base.html' %}
 
+{% block title %}
+{{ page.title }} par Adrien Samson
+{% endblock %}
+
+{% block header %}
+<h1>{{ page.title }}</h1>
+<div>par <a href="/">Adrien Samson</a> le {{ page.date | date(format="%d %h %Y", locale="fr_FR") }}</div>
+{% endblock %}
+
 {% block content %}
-{{ page.content | safe }}
+    {{ page.content | safe }}
+
+    <hr>
+    <p>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </p>
 {% endblock %}

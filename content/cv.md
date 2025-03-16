@@ -1,5 +1,6 @@
 ---
-
+title: CV Adrien Samson
+template: raw.html
 ---
 <h2>Expériences professionnelles</h2>
 

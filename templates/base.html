@@ -7,9 +7,8 @@
     <meta name="description" content="Consultant expert PHP à Lyon">
     <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
-    <link rel="stylesheet" type="text/css" href="/pygment_monokai.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
-    <title>Adrien Samson{% if page.title %} - {{ page.title }}{% endif %}</title>
+    <title>{% block title %}Adrien Samson{% if page.title %} - {{ page.title }}{% endif %}{% endblock %}</title>
 </head>
 
 <body>
@@ -17,21 +16,11 @@
     <div class="inner">
 
         <header>
-            <h1>
-                <a href="{% if lang == 'fr'%}/{% else %}/en{% endif %}">Adrien Samson</a>
-                {% if page.title %}
-                <br/>{{ page.title }}
-                {% endif %}
-            </h1>
+            {% block header %}
+            <h1><a href="/">Adrien Samson</a></h1>
+            {% endblock %}
         </header>
         <hr />
-        {% if other_languages %}
-        <nav id="other_languages">
-            {% for language in other_languages %}
-            <a href="{{language[1]}}">[{{language[0]}}]</a>
-            {% endfor %}
-        </nav>
-        {% endif %}
 
         <section id="main_content">
             {% block content %} {% endblock %}

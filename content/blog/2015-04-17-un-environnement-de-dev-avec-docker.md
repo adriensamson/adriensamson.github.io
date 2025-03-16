@@ -20,7 +20,7 @@ Sur une applicaton typique PHP/nginx/MySQL, nous allons créer trois containers 
 
 Par exemple, le Dockerfile pour lancer les scripts contriendra :
 
-~~~
+```dockerfile
 FROM stackbrew/debian:wheezy
 ENV DEBIAN_FRONTEND noninteractive
 # Vous pouvez ajouter d'autres extensions PHP ici
@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 VOLUME /srv
 WORKDIR /srv
-~~~
+```
 
 Des exemples pour mysql et nginx sont disponibles sur le repo [adriensamson/docker-images](https://github.com/adriensamson/docker-images).
 
@@ -42,15 +42,15 @@ Il est aussi possible de spécifier l'utilisateur à la commande `run` avec `-u`
 
 Et puisque cette ligne est un peu longue, on peut la mettre dans un [do-file]({% post_url 2015-04-09-do-file %}) :
 
-{% highlight bash %}
+```bash
 composer () {
     docker run -it --rm -u $(id -u):$(id -g) -v $PWD:/srv composer $@
 }
-{% endhighlight %}
+```
 
 De la même manière, on peut utiliser ce container pour accéder à la console symfony et lui donner accès au container mysql :
 
-{% highlight bash %}
+```bash
 startmysql () {
     # est-ce que le container existe déjà ?
     if docker inspect myproject-mysql 1>/dev/null 2>&1
@@ -75,20 +75,20 @@ sf () {
     startmysql
     docker run -it --rm -u $(id -u):$(id -g) -v $PWD:/srv --link myproject-mysql:mysql app/console $@
 }
-{% endhighlight %}
+```
 
 Depuis la version 1.3, docker ajoute automatiquement les IP des containers liés dans /etc/hosts donc il suffit dans ce cas de configurer `mysql` comme hôte MySQL :
 
-{% highlight yaml %}
+```yaml
 doctrine:
     dbal:
         driver: "pdo_mysql"
         host: "mysql"
-{% endhighlight %}
+```
 
 Pour lancer nginx c'est à peu près pareil.
 
-{% highlight bash %}
+```bash
 startnginx () {
     startmysql
     if docker inspect myproject-nginx 1>/dev/null 2>&1
@@ -110,7 +110,7 @@ stopnginx () {
     docker rm myproject-nginx
 }
 
-{% endhighlight %}
+```
 
 Et voilà, on a un environnement de dev avec trois containers : un pour mysql, un pour fpm et nginx et un dernier pour la console php.
 
@@ -122,7 +122,7 @@ Dernier détail, les bases MySQL sont stockées au milieu du projet dans var/mys
 C'est un container qui ne lance pas de commande mais qui a juste un système de fichiers pour stocker des données.
 Pour cela, il suffit de créer un container avec `docker create` et de l'utiliser avec `--volumes-from`.
 
-{% highlight bash %}
+```bash
 startmysql () {
     # données
     if ! docker inspect myproject-mysql-data 1>/dev/null 2>&1
@@ -142,4 +142,4 @@ startmysql () {
         docker run -itd --volumes-from myproject-mysql-data --name myproject-mysql adriensamson/mysql
     fi
 }
-{% endhighlight %}
+```

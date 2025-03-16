@@ -32,12 +32,12 @@ Dans une application PHP classique avec php-fpm, nginx et mysql, vous allez mett
 
 Déboguer ce qui ne va pas dans votre *container* est difficile au premier abord et vous apprécieriez d'avoir un *shell*. C'est pourquoi tous mes *containers* de démons lancent un *shell*. Notez qu'il faut utiliser les options `-t` et `-i` de `docker run` pour que bash ne se ferme pas immédiatement.
 
-~~~
+```dockerfile
 CMD /etc/init.d/nginx start && bash
-~~~
+```
 
 Vous n'avez pas besoin d'exposer les ports du *container* sur la machine hôte. La plupart du temps, ce dont vous avez réellement besoin est l'adresse IP du *container*.
 
-{% highlight bash %}
+```bash
 docker inspect --format='{{ "{{" }} .NetworkSettings.IPAddress }}' $CONTAINER
-{% endhighlight %}
+```

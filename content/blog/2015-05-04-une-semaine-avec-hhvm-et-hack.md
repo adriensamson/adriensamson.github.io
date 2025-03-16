@@ -43,18 +43,18 @@ J'ai rencontré un autre problème, un peu plus tordu, au niveau des sessions.
 La gestion des sessions par défaut de Symfony pose problème dès qu'il y a une propriété privée à sérialiser dans la session, c'est-à-dire dès qu'on essaye de connecter un utilisateur.
 Il existe un contournement qui consiste à désactiver le session handler par défaut et à démarrer la session à la main dans `app.php`
 
-{% highlight yaml %}
+```yaml
 # config.yml
 framework:
     session:
         handler_id: ~
-{% endhighlight %}
+```
 
-{% highlight php %}
+```php
 <?php // app_dev.php
 session_save_path(__DIR__.'/../app/cache/dev/sessions');
 session_start();
-{% endhighlight %}
+```
 
 Mais c'est quand même mieux de [faire une PR](https://github.com/facebook/hhvm/pull/5212) pour corriger HHVM.
 

@@ -1,7 +1,5 @@
 ---
-layout: post
 title: Mes alias git
-language: fr
 other_languages:
     en: my-git-aliases.html
 ---
@@ -9,7 +7,7 @@ other_languages:
 
 Quand je travaille sur un projet chez [M6Web](http://tech.m6web.fr), je fais toujours à peu près ça :
 
-{% highlight bash %}
+```bash
 git checkout master
 git pull --ff-only origin master
 git checkout -b my-new-feature
@@ -19,11 +17,11 @@ git add -A
 git diff --staged
 git commit
 git push origin my-new-feature
-{% endhighlight %}
+```
 
 Vu que j'utilise ces commandes très souvent, je les ai abbrégé pour ne faire qu'une ou deux lettres :
 
-{% highlight bash %}
+```bash
 git co master
 git u
 git co -b my-new-feature
@@ -33,7 +31,7 @@ git a
 git ds
 git ci
 git p
-{% endhighlight %}
+```
 
 ## Autres alias
 
