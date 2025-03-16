@@ -14,8 +14,9 @@
             --smile: #ff8054;
             --ecl: #80242E;
 
-            --accent-fg: oklch(25% 0.085 283);
-            --accent-bg: oklch(90% 0.085 283);
+            --accent-fg: oklch(25% 0.085 275);
+            --accent-bg: oklch(90% 0.085 275);
+            --accent-border: oklch(50% 0.085 275);
         }
         html {
             background: #eeeeee;
@@ -47,9 +48,7 @@
         #name {
             flex: 0 0 12rem;
             margin-left: 4rem;
-        }
-        #name div.photo {
-            text-align: center;
+            text-align: right;
         }
         #name div.photo > img {
             width: 80%;
@@ -65,7 +64,7 @@
             font-size: .9rem;
         }
 
-        dl {
+        dl, ul {
             margin: .5rem 0;
         }
         dl:has(~ .fork) {
@@ -81,6 +80,9 @@
         dd {
             margin-left: 1.5rem;
         }
+        li {
+            list-style: "» ";
+        }
         #competences {
 
         }
@@ -93,18 +95,27 @@
             /*flex-direction: column;*/
         }
         #softskills {
-            flex: 2
+            flex: 3
         }
         #softskills ~ div {
             flex: 1;
         }
+        #softskills ul {
+            column-count: 2;
+        }
 
         #technologies div.table {
             display: grid;
+            grid-column-gap: 1.5rem;
             grid-template-columns: min-content repeat(3, 1fr);
         }
-        #technologies div.table div.header {
-            font-weight: 500;
+        #technologies div.table div.header, #technologies div.table div.row-header {
+            /*font-weight: 400;*/
+        }
+        #technologies div.table div:not(.header) {
+            border-top: solid 1px var(--accent-border);
+            margin-top: .3rem;
+            padding-top: .3rem;
         }
         #technologies div.table div {
             display: flex;
@@ -271,7 +282,7 @@
                     <div class="header">Avancé</div>
                     <div class="header">Expert</div>
 
-                    <div class="header">Langages</div>
+                    <div class="row-header">Langages</div>
                     <div>
                         <span>Python</span>
                         <span>C</span>
@@ -288,7 +299,7 @@
                         <span>PHP</span>
                     </div>
 
-                    <div class="header">Framework</div>
+                    <div class="row-header">Framework</div>
                     <div>
                         <span>yocto</span>
                         <span>Gtk</span>
@@ -301,31 +312,32 @@
                         <span>Symfony</span>
                     </div>
 
-                    <div class="header">Protocoles</div>
-                    <div></div>
+                    <div class="row-header">Protocoles</div>
                     <div>
-                        <span>Enocean</span>
                         <span>LoraWAN</span>
+                    </div>
+                    <div>
                         <span>Modbus</span>
+                        <span>Enocean</span>
                     </div>
                     <div>
                         <span>HTTP</span>
                         <span>TCP</span>
                     </div>
 
-                    <div class="header">Outils</div>
+                    <div class="row-header">Outils</div>
                     <div>
                         <span>ansible</span>
                         <span>nginx</span>
                     </div>
                     <div>
-                        <span>debian</span>
-                        <span>systemd</span>
                         <span>openssl</span>
                         <span>openssh</span>
                     </div>
                     <div>
                         <span>git</span>
+                        <span>debian</span>
+                        <span>systemd</span>
                     </div>
                 </div>
 
@@ -334,9 +346,12 @@
                 <div id="softskills">
                     <h2>Compétences</h2>
                     <ul>
-                        <li>Rigueur</li>
+                        <li>Esprit critique</li>
+                        <li>Curiosité technique</li>
                         <li>Polyvalence</li>
                         <li>Agilité</li>
+                        <li>Collective ownership</li>
+                        <li>Mentoring</li>
                     </ul>
                 </div>
                 <div id="languages">
