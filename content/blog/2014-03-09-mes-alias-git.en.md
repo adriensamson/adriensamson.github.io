@@ -9,7 +9,7 @@ other_languages:
 
 When I'm working on a project at [M6Web](http://tech.m6web.fr), my workflow is almost always like this:
 
-{% highlight bash %}
+```bash
 git checkout master
 git pull --ff-only origin master
 git checkout -b my-new-feature
@@ -19,10 +19,10 @@ git add -A
 git diff --staged
 git commit
 git push origin my-new-feature
-{% endhighlight %}
+```
 
 Since I run these commands very often, I've abbreviated them to 1 or 2 letters:
-{% highlight bash %}
+```bash
 git co master
 git u
 git co -b my-new-feature
@@ -32,7 +32,7 @@ git a
 git ds
 git ci
 git p
-{% endhighlight %}
+```
 
 ## Other aliases
 

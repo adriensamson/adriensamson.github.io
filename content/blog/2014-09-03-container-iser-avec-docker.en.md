@@ -31,13 +31,13 @@ In a typical PHP application with php-fpm, nginx and mysql, you'd put mysql in i
 
 Debugging what's wrong in your container is hard at first sight and you'd like to have a shell. That's why all my daemon containers are running a shell. Note that you must use `-t` and `-i` docker run options for bash to not exit immediately.
 
-~~~
+```dockerfile
 CMD /etc/init.d/nginx start && bash
-~~~
+```
 
 You don't have to expose the container's ports on the host. Most of the time, What you really need is the IP address of the container.
 
-{% highlight bash %}
+```bash
 docker inspect --format='{{ "{{" }} .NetworkSettings.IPAddress }}' $CONTAINER
-{% endhighlight %}
+```
 
