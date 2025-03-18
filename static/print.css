@@ -1,16 +1,7 @@
-#downloads {
+body {
+    background-color: #fff;
+}
+
+footer {
     display: none;
-}
-
-hr {
-    border: solid 1px;
-    padding: 0;
-}
-
-header {
-    padding: 10px 0;
-}
-
-ul.skills, ul.skills li {
-    margin-bottom: 0;
 }
