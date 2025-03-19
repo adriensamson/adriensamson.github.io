@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Cordova, pour des applications multi-plateformes par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Cordova, pour des applications multi-plateformes</h1>
+<div>par <a href="/">Adrien Samson</a> le 15 sept. 2015</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <h2 id="cordova-et-phonegap">Cordova et PhoneGap</h2>
+<p><a href="http://cordova.apache.org">Cordova</a>, plus connue sous le nom de <a href="http://phonegap.com">PhoneGap</a>, permet de créer des applications mobiles en HTML et Javascript pour les différentes plateformes qui existent.
+Cela permet de déployer une application iOS ou Android sans écrire une seule ligne d'Objective-C ou de Java.</p>
+<p>En 2011, le code de PhoneGap a été donné à la fondation Apache et est devenu Cordova. PhoneGap n'est maintenant qu'une surcouche à Cordova associée à une plateforme de compilation SaaS : <a href="https://build.phonegap.com">PhoneGap Build</a>.</p>
+<p>Cordova propose un système de plugins pour accéder aux fonctions natives des appareils en utilisant une API la plus commune possible entre les plateformes.
+Certains plugins sont officiels et développés sous la bannière de la fondation Apache (pour accéder au système de fichiers, à l'état des connexions, …) et supportent toutes les plateformes, d'autres sont communautaires (achats in-app, …) et ne supportent que quelques plateformes (généralement iOS, Android et Windows dans cet ordre).</p>
+<h2 id="multi-plateforme">Multi-plateforme</h2>
+<p>Il n'existe pas d'environnement de développement universel multi-pateforme.
+Pour développer, tester et déboguer une application iOS construite avec Cordova, il faut travailler avec la plateforme <code>ios</code> sur un ordinateur MacOS avec XCode et Safari; pour une application Windows, il faut travailler sous Windows avec VisualStudio.</p>
+<p>L'utilisation naïve de Cordova est donc de générer une application par plateforme et de travailler séparément sur les différentes applications.
+Mais on perd l'intérêt principal de l'utilisation de Cordova : avoir une seule base de code pour les différentes plateformes et ne pas s'embêter à reporter à la main les corrections ou évolutions.</p>
+<p>Pour garder une application multi-plateforme, il faut donc faire attention à ne jamais modifier ce qui est généré par cordova pour une plateforme donnée.
+C'est pour cela que l'on va ignorer le dossier <code>platforms/</code> dans son gestionnaire de code et tester régulièrement que supprimer et ajouter la plateforme permet de retrouver la même chose.</p>
+<p>De la même manière, XCode et VisualStudio étant lancés depuis un répertoire de travail spécifique à la plateforme, il ne faut les utiliser que pour lancer l'application et déboguer.
+On préférera donc travailler dans son IDE préféré à la racine du projet, quitte à lancer la commande <code>cordova prepare</code> très souvent pour mettre à jour l'espace de travail de la plateforme.</p>
+<h2 id="et-quand-on-veut-des-differences">Et quand on veut des différences ?</h2>
+<p>Il arrive parfois que l'on ait besoin de faire les choses différemmment d'une plateforme à l'autre, que ce soit un besoin ergonomique ou un problème de compatibilité des plugins.</p>
+<p>Dans ce cas on utilise le mécanisme de <code>merge</code> de cordova : lors de la phase <code>prepare</code> (qui correspond grossièrement à la copie des sources globales dans le dossier de la plateforme),
+les fichiers présents dans le dossier <code>merges/&lt;platform&gt;/</code> remplaceront ceux qui sont globaux.</p>
+<p>Ceci permet donc de faire diverger finement les différentes versions tout en gardant une base de code unique.</p>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

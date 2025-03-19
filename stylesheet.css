@@ -1,0 +1,244 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* FONTS */
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+/* COLOURS */
+:root {
+    --accent: oklch(20% 0.085 275);
+    --accent-mid: oklch(50% 0.085 275);
+
+    --main-fg: oklch(25% 0.035 275);
+    --main-border: oklch(75% 0.035 275);
+
+    --main-bg: oklch(90% 0.005 85)
+}
+
+/* LAYOUT STYLES */
+body {
+  font-size: 1em;
+  line-height: 1.5; 
+  background: var(--main-bg);
+  font-family: 'Nunito', sans-serif;
+  color: var(--main-fg);
+}
+
+a {
+  color: var(--accent-mid);
+}
+a:hover {
+  color: var(--accent);;
+}
+
+header {
+  padding-top: 35px;
+  padding-bottom: 25px;
+}
+
+header h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-size: 48px;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+header h1 a, header h1 a:hover {
+    color: var(--accent);
+}
+
+#container {
+  padding: 0 1rem;
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+#container .inner img {
+  max-width: 100%;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+code {
+  border: solid 1px var(--main-border);
+  padding: 0 3px;
+}
+
+pre {
+  padding: 20px;
+  text-shadow: none;
+  overflow: auto;
+}
+pre code {
+  border: none;
+  padding: 0;
+}
+
+ul, ol, dl {
+  margin-bottom: 20px;
+}
+
+
+/* COMMON STYLES */
+
+hr {
+  margin: 1rem 3rem;
+  border: none;
+  border-bottom: 1px solid var(--main-border);
+}
+
+strong {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+em {
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+  border: 1px solid var(--main-border);
+}
+
+th {
+  font-weight: 500;
+}
+
+td {
+  border: 1px solid var(--main-border);
+  text-align: center; 
+  font-weight: 300;
+}
+
+/* GENERAL ELEMENT TYPE STYLES */
+
+h1 {
+  font-size: 32px;
+} 
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 8px;
+} 
+
+h3 {
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+} 
+ 
+h4 {
+  font-size: 16px;
+  color: var(--accent-mid);
+  font-weight: bold;
+} 
+
+h5 {
+  font-size: 1rem;
+  color: var(--accent-mid);
+} 
+
+h6 {
+  font-size: .8rem;
+  color: var(--accent-mid);
+} 
+
+p {
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+ 
+a {
+  text-decoration: none;
+}
+
+p a {
+  font-weight: 400;
+}
+
+blockquote {
+  font-size: 1.6em;
+  border-left: 10px solid var(--main-border);
+  margin-bottom: 20px;
+  padding: 0 0 0 30px;
+}
+
+ul li {
+  list-style: disc inside;
+  padding-left: 20px;
+}
+
+ol li {
+  list-style: decimal inside;
+  padding-left: 3px;
+}
+
+dl dt {
+  color: var(--accent);
+}
+
+ul.posts li {
+    list-style: none;
+    padding-left: 0;
+}

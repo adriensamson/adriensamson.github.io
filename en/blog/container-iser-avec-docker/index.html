@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Containerize with docker par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Containerize with docker</h1>
+<div>par <a href="/">Adrien Samson</a> le 03 sept. 2014</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <p>There are mainly two reasons why you may want to containerize your apps:</p>
+<ul>
+<li>easy deployment, that's really important if you want to scale up by adding machines in the cloud</li>
+<li>isolation, that's when you want to mutualize your machine between some services that may need different app (php, node, ruby...) versions or configurations</li>
+</ul>
+<h2 id="isolation">Isolation</h2>
+<p>Almost all services I host have at most one user: myself. So I don't mind scaling to say the least. What I want is isolation because I don't want to <code>sudo npm install</code> half of the internet on my email server.</p>
+<h2 id="docker">Docker</h2>
+<p><a href="https://www.docker.com/whatisdocker/">Docker</a> is an easy-to-use wrapper to <a href="http://en.wikipedia.org/wiki/LXC">Linux Containers</a> even if it may support other isolation systems in the future.
+I tried to directly use LXC in the past but I can't remember of a successful <code>lxc-create</code>.</p>
+<p>Docker helps you create your own containers with a <code>Dockerfile</code>. It's a recipe with a list of commands to run from a base image that you choose from <a href="https://registry.hub.docker.com/">Docker Hub</a>.</p>
+<h2 id="choose-the-right-level-of-isolation">Choose the right level of isolation</h2>
+<p>When it comes to isolation, you have to choose whether you split everything in different containers or some pieces should be kept together.
+In a typical PHP application with php-fpm, nginx and mysql, you'd put mysql in its own container. But separating nginx and php-fpm is mostly overkill.</p>
+<h2 id="tips-and-tricks">Tips and tricks</h2>
+<p>Debugging what's wrong in your container is hard at first sight and you'd like to have a shell. That's why all my daemon containers are running a shell. Note that you must use <code>-t</code> and <code>-i</code> docker run options for bash to not exit immediately.</p>
+<pre data-lang="dockerfile" style="background-color:#272822;color:#f8f8f2;" class="language-dockerfile "><code class="language-dockerfile" data-lang="dockerfile"><span>CMD /etc/init.d/nginx start &amp;&amp; bash
+</span></code></pre>
+<p>You don't have to expose the container's ports on the host. Most of the time, What you really need is the IP address of the container.</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span>docker inspect</span><span style="font-style:italic;color:#fd971f;"> --format</span><span style="color:#f92672;">=</span><span style="color:#e6db74;">&#39;{{ &quot;{{&quot; }} .NetworkSettings.IPAddress }}&#39; </span><span>$CONTAINER
+</span></code></pre>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

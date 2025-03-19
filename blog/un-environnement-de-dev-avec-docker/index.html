@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Un environnement de dev avec docker par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Un environnement de dev avec docker</h1>
+<div>par <a href="/">Adrien Samson</a> le 17 avril 2015</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <h2 id="isolation">Isolation</h2>
+<p>J'ai toujours un peu peur quand je fais un <code>sudo npm install -g &lt;module&gt;</code> sur mon poste.
+C'est un peu risqué de donner les droits root à un utilitaire qui va télécharger la moitié de l'Internet.
+Et puis comment faire quand deux projets ont besoin de versions différentes d'un même module ?</p>
+<p>Dans un autre registre, installer mysql, mongodb et autres sur mon poste, c'est pratique pour commencer à les utiliser mais comment gérer le fait que je ne veux pas les lancer quand je ne travaille pas sur un projet qui les utilise ?</p>
+<p>On peut utiliser des machines vitruelles avec VirtualBox et Vagrant mais ce n'est pas super en terme de performances et de partages de fichiers. C'est là que Docker va nous aider (sous linux surtout).</p>
+<h2 id="sur-une-application-php">Sur une application PHP</h2>
+<p>Sur une applicaton typique PHP/nginx/MySQL, nous allons créer trois containers : un pour mysql, un pour nginx/php-fpm et un pour lancer des scripts PHP.</p>
+<p>Par exemple, le Dockerfile pour lancer les scripts contriendra :</p>
+<pre data-lang="dockerfile" style="background-color:#272822;color:#f8f8f2;" class="language-dockerfile "><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#f92672;">FROM</span><span> stackbrew/debian:wheezy
+</span><span style="color:#f92672;">ENV </span><span>DEBIAN_FRONTEND noninteractive
+</span><span style="color:#75715e;"># Vous pouvez ajouter d&#39;autres extensions PHP ici
+</span><span style="color:#f92672;">RUN </span><span>apt-get update &amp;&amp; apt-get install -y curl php5-cli php5-curl php5-intl php5-mysql
+</span><span style="color:#f92672;">RUN </span><span>curl -sS https://getcomposer.org/installer | php
+</span><span style="color:#f92672;">RUN </span><span>mv composer.phar /usr/local/bin/composer
+</span><span style="color:#f92672;">VOLUME </span><span>/srv
+</span><span style="color:#f92672;">WORKDIR </span><span>/srv
+</span></code></pre>
+<p>Des exemples pour mysql et nginx sont disponibles sur le repo <a href="https://github.com/adriensamson/docker-images">adriensamson/docker-images</a>.</p>
+<p>Une fois cette image construite avec <code>docker build -t myproject-phpcli /path/to/Dockerfile</code>, on pourra lancer composer dans un container avec <code>docker run -it -v $PWD:/srv composer install</code>.
+On ajoute l'option <code>--rm</code> pour supprimer le container dès que la commande est terminée.</p>
+<p>Il reste un petit problème de droits, puisque <code>composer</code> serait lancé en root et donc va installer les vendors en root.
+Il y a bien la commande <code>USER</code> que l'on peut mettre dans le Dockerfile mais cela nécessite de créer un user et de lui donner le même uid que l'utilisateur qui lancera le container, ce qui pose problème pour réutiliser l'image.
+Il est aussi possible de spécifier l'utilisateur à la commande <code>run</code> avec <code>-u</code> et nous allons lui donner l'uid et le gid de l'utilisateur courant grâce à <a href="http://linux.die.net/man/1/id">id</a>.</p>
+<p>Et puisque cette ligne est un peu longue, on peut la mettre dans un [do-file]({% post_url 2015-04-09-do-file %}) :</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#a6e22e;">composer </span><span>() {
+</span><span>    docker run</span><span style="font-style:italic;color:#fd971f;"> -it --rm -u </span><span>$(id</span><span style="font-style:italic;color:#fd971f;"> -u</span><span>):$(id</span><span style="font-style:italic;color:#fd971f;"> -g</span><span>)</span><span style="font-style:italic;color:#fd971f;"> -v </span><span>$PWD:/srv composer $@
+</span><span>}
+</span></code></pre>
+<p>De la même manière, on peut utiliser ce container pour accéder à la console symfony et lui donner accès au container mysql :</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#a6e22e;">startmysql </span><span>() {
+</span><span>    </span><span style="color:#75715e;"># est-ce que le container existe déjà ?
+</span><span>    </span><span style="color:#f92672;">if </span><span>docker inspect myproject-mysql </span><span style="color:#ae81ff;">1</span><span style="color:#f92672;">&gt;</span><span>/dev/null </span><span style="color:#ae81ff;">2</span><span style="color:#f92672;">&gt;&amp;</span><span style="color:#ae81ff;">1
+</span><span>    </span><span style="color:#f92672;">then
+</span><span>        </span><span style="color:#75715e;"># est-ce qu&#39;il faut le redémarrer ?
+</span><span>        </span><span style="color:#f92672;">if </span><span style="color:#66d9ef;">[ </span><span>$(docker inspect</span><span style="font-style:italic;color:#fd971f;"> -f </span><span style="color:#e6db74;">&#39;{{ &#39;</span><span>{{</span><span style="color:#e6db74;">&#39; }} .State.Running }}&#39;</span><span> myproject-mysql) -eq </span><span style="color:#e6db74;">&quot;false&quot;</span><span> ]
+</span><span>        then
+</span><span>            docker restart myproject-mysql
+</span><span>        fi
+</span><span>    else
+</span><span>        </span><span style="color:#75715e;"># les données de la base sont conservés dans ./var/mysql
+</span><span>        docker run -itd -v $PWD/var/mysql:/var/lib/mysql --name myproject-mysql adriensamson/mysql
+</span><span>    fi
+</span><span>}
+</span><span>
+</span><span>stopmysql () {
+</span><span>    docker stop myproject-mysql
+</span><span>    docker rm myproject-mysql
+</span><span>}
+</span><span>
+</span><span>sf () {
+</span><span>    startmysql
+</span><span>    docker run -it --rm -u $(id</span><span style="font-style:italic;color:#fd971f;"> -u</span><span>):$(id</span><span style="font-style:italic;color:#fd971f;"> -g</span><span>) -v $PWD:/srv --link myproject-mysql:mysql app/console $@
+</span><span>}
+</span></code></pre>
+<p>Depuis la version 1.3, docker ajoute automatiquement les IP des containers liés dans /etc/hosts donc il suffit dans ce cas de configurer <code>mysql</code> comme hôte MySQL :</p>
+<pre data-lang="yaml" style="background-color:#272822;color:#f8f8f2;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#f92672;">doctrine</span><span>:
+</span><span>    </span><span style="color:#f92672;">dbal</span><span>:
+</span><span>        </span><span style="color:#f92672;">driver</span><span>: </span><span style="color:#e6db74;">&quot;pdo_mysql&quot;
+</span><span>        </span><span style="color:#f92672;">host</span><span>: </span><span style="color:#e6db74;">&quot;mysql&quot;
+</span></code></pre>
+<p>Pour lancer nginx c'est à peu près pareil.</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#a6e22e;">startnginx </span><span>() {
+</span><span>    startmysql
+</span><span>    </span><span style="color:#f92672;">if </span><span>docker inspect myproject-nginx </span><span style="color:#ae81ff;">1</span><span style="color:#f92672;">&gt;</span><span>/dev/null </span><span style="color:#ae81ff;">2</span><span style="color:#f92672;">&gt;&amp;</span><span style="color:#ae81ff;">1
+</span><span>    </span><span style="color:#f92672;">then
+</span><span>        </span><span style="color:#f92672;">if </span><span style="color:#66d9ef;">[ </span><span>$(docker inspect</span><span style="font-style:italic;color:#fd971f;"> -f </span><span style="color:#e6db74;">&#39;{{ &#39;</span><span>{{</span><span style="color:#e6db74;">&#39; }} .State.Running }}&#39;</span><span> myproject-nginx) -eq </span><span style="color:#e6db74;">&quot;false&quot;</span><span> ]
+</span><span>        then
+</span><span>            docker restart myproject-nginx
+</span><span>        fi
+</span><span>    else
+</span><span>        docker run -itd -v $PWD:/srv --link myproject-mysql:mysql --name myproject-nginx myproject-nginx
+</span><span>    fi
+</span><span>    
+</span><span>    </span><span style="color:#75715e;"># on affiche l&#39;IP du container
+</span><span>    docker inspect -f </span><span style="color:#e6db74;">&#39;{{ &#39;</span><span>{{</span><span style="color:#e6db74;">&#39; }} .NetworkSettings.IPAddress }}&#39;</span><span> myproject-nginx
+</span><span>}
+</span><span>
+</span><span>stopnginx () {
+</span><span>    docker stop myproject-nginx
+</span><span>    docker rm myproject-nginx
+</span><span>}
+</span><span>
+</span></code></pre>
+<p>Et voilà, on a un environnement de dev avec trois containers : un pour mysql, un pour fpm et nginx et un dernier pour la console php.</p>
+<p>Et depuis la version 1.3 de docker, on peut <em>entrer</em> dans un container pour débugguer (aller lire les logs d'erreur nginx par exemple) avec <code>docker exec -it myproject-nginx bash</code>.</p>
+<h2 id="container-de-donnees">Container de données</h2>
+<p>Dernier détail, les bases MySQL sont stockées au milieu du projet dans var/mysql avec les droits d'un user mysql. Pour éviter cela, on peut utiliser un container de données.
+C'est un container qui ne lance pas de commande mais qui a juste un système de fichiers pour stocker des données.
+Pour cela, il suffit de créer un container avec <code>docker create</code> et de l'utiliser avec <code>--volumes-from</code>.</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#a6e22e;">startmysql </span><span>() {
+</span><span>    </span><span style="color:#75715e;"># données
+</span><span>    </span><span style="color:#f92672;">if ! </span><span>docker inspect myproject-mysql-data </span><span style="color:#ae81ff;">1</span><span style="color:#f92672;">&gt;</span><span>/dev/null </span><span style="color:#ae81ff;">2</span><span style="color:#f92672;">&gt;&amp;</span><span style="color:#ae81ff;">1
+</span><span>        docker create</span><span style="font-style:italic;color:#fd971f;"> --name</span><span> myproject-mysql-data adriensamson/mysql
+</span><span>        </span><span style="color:#75715e;"># en 1.3, create n&#39;initialise pas les volumes, il faut utiliser run
+</span><span>        </span><span style="color:#75715e;"># docker run --name myproject-mysql-data adriensamson/mysql true
+</span><span>    </span><span style="color:#f92672;">fi
+</span><span>
+</span><span>    </span><span style="color:#75715e;"># serveur mysql
+</span><span>    </span><span style="color:#f92672;">if </span><span>docker inspect myproject-mysql </span><span style="color:#ae81ff;">1</span><span style="color:#f92672;">&gt;</span><span>/dev/null </span><span style="color:#ae81ff;">2</span><span style="color:#f92672;">&gt;&amp;</span><span style="color:#ae81ff;">1
+</span><span>    </span><span style="color:#f92672;">then
+</span><span>        </span><span style="color:#f92672;">if </span><span style="color:#66d9ef;">[ </span><span>$(docker inspect</span><span style="font-style:italic;color:#fd971f;"> -f </span><span style="color:#e6db74;">&#39;{{ &#39;</span><span>{{</span><span style="color:#e6db74;">&#39; }} .State.Running }}&#39;</span><span> myproject-mysql) -eq </span><span style="color:#e6db74;">&quot;false&quot;</span><span> ]
+</span><span>        then
+</span><span>            docker restart myproject-mysql
+</span><span>        fi
+</span><span>    else
+</span><span>        docker run -itd --volumes-from myproject-mysql-data --name myproject-mysql adriensamson/mysql
+</span><span>    fi
+</span><span>}
+</span></code></pre>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

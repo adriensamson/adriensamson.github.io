@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Makefile ou do-file ? par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Makefile ou do-file ?</h1>
+<div>par <a href="/">Adrien Samson</a> le 09 avril 2015</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <h2 id="makefile">Makefile</h2>
+<p>Les <code>Makefile</code> servent à configurer <code>make</code> qui est un outil de <code>build</code> de projet.
+Le principe est simple : pour construire une <em>cible</em>, on indique les dépendances et la commande pour la construire.
+<code>make</code> s'occupe de résoudre l'arbre de dépendance pour construire les cibles dans l'ordre.</p>
+<pre data-lang="makefile" style="background-color:#272822;color:#f8f8f2;" class="language-makefile "><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e;">helloworld</span><span style="color:#f92672;">: </span><span style="color:#e6db74;">hello world
+</span><span>    cat hello world </span><span style="color:#f92672;">&gt;</span><span>helloworld
+</span><span style="color:#a6e22e;">hello</span><span style="color:#f92672;">:
+</span><span>    </span><span style="color:#66d9ef;">echo</span><span> Hello </span><span style="color:#f92672;">&gt;</span><span>hello
+</span><span style="color:#a6e22e;">world</span><span style="color:#f92672;">:
+</span><span>    </span><span style="color:#66d9ef;">echo</span><span> World </span><span style="color:#f92672;">&gt;</span><span>world
+</span></code></pre>
+<p>Mais surtout, <code>make</code> suveille la date de modification des fichiers, ainsi il ne reconstruira <code>helloword</code> que si <code>hello</code> ou <code>world</code> a été touché.</p>
+<h2 id="utilisation-detournee">Utilisation détournée</h2>
+<p>On voit de plus en plus une utilisation détournée des <code>Makefile</code> pour lancer facilement des scripts :</p>
+<pre data-lang="makefile" style="background-color:#272822;color:#f8f8f2;" class="language-makefile "><code class="language-makefile" data-lang="makefile"><span style="color:#a6e22e;">install</span><span style="color:#f92672;">:
+</span><span>    composer install
+</span><span>    app/console cache:clear
+</span><span>    app/console assets:install
+</span></code></pre>
+<p>Ça fonctionne bien parce qu'il n'y a pas de fichier <code>install</code> qui est créé donc les commandes sont toujours relancées à chaque <code>make install</code>.
+Mais utiliser <code>make</code> <em>juste</em> pour lancer des scripts, ce n'est pas le plus adapté.
+Surtout qu'il faut mettre des tabulations et que ce n'est pas si simple avec un IDE configuré pour remplacer les tabulations par des espaces.</p>
+<h2 id="do-file">do-file</h2>
+<p>Finalement, pour lancer des scripts, quoi de mieux qu'un script ?
+Ce que j'appelle le <em>do</em>-file est tout simplement un script shell appelé <code>do</code> qui contient des fonctions.</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#75715e;">#!/usr/bin/env sh
+</span><span>
+</span><span style="color:#a6e22e;">install </span><span>() {
+</span><span>    composer install
+</span><span>    app/console cache:clear
+</span><span>    app/console assets:install
+</span><span>}
+</span><span>
+</span><span style="color:#75715e;"># lancer la commande en argument
+</span><span>$@
+</span></code></pre>
+<p>On lance donc la commande avec <code>./do install</code>.</p>
+<p>Et vu que c'est du shell, on peut commencer à faire des choses intéressantes :</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#75715e;">#!/usr/bin/env sh
+</span><span>
+</span><span style="color:#a6e22e;">sf </span><span>() {
+</span><span>    app/console $@
+</span><span>}
+</span><span>
+</span><span style="color:#a6e22e;">sfprod </span><span>() {
+</span><span>    sf</span><span style="font-style:italic;color:#fd971f;"> --env</span><span style="color:#f92672;">=</span><span>prod $@
+</span><span>}
+</span><span>
+</span><span style="color:#a6e22e;">install </span><span>() {
+</span><span>    composer install
+</span><span>    sf cache:clear
+</span><span>    sf assets:install
+</span><span>}
+</span><span>
+</span><span style="color:#a6e22e;">server </span><span>() {
+</span><span>    sf server:run localhost:8080
+</span><span>}
+</span><span>
+</span><span style="color:#f92672;">if </span><span style="color:#66d9ef;">[ </span><span>$# </span><span style="font-style:italic;color:#fd971f;">-eq</span><span> 0 </span><span style="color:#66d9ef;">]
+</span><span style="color:#f92672;">then
+</span><span>    install
+</span><span>    </span><span style="color:#66d9ef;">exit
+</span><span style="color:#f92672;">fi
+</span><span>
+</span><span>$@
+</span></code></pre>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

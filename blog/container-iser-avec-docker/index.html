@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Container-iser avec docker par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Container-iser avec docker</h1>
+<div>par <a href="/">Adrien Samson</a> le 03 sept. 2014</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <p>Il y deux raisons principales pour lesquelles vous pourriez vouloir <em>container</em>-iser vos applications :</p>
+<ul>
+<li>un déploiement facile, cest très important si vous voulez <em>scaler</em> en ajoutant des machines dans le <em>cloud</em></li>
+<li>l'isolation, c'est quand vous voulez mutualiser votre machine entre plusieurs services qui nécessitent des versions ou des configurations différentes de php, node ou ruby...</li>
+</ul>
+<h2 id="isolation">Isolation</h2>
+<p>Tous les services que j'héberge ont au plus un utilisateur : moi-même. Donc je me fous de pouvoir <em>scaler</em>. Ce que je veux c'est isoler parce que je refuse de lancer <code>sudo npm install</code> et de recevoir la moitié de l'Internet sur mon serveur d'emails.</p>
+<h2 id="docker">Docker</h2>
+<p><a href="https://www.docker.com/whatisdocker/">Docker</a> est une surcouche facile à utiliser à <a href="http://en.wikipedia.org/wiki/LXC">Linux Containers</a> même s'il pourrait supporter d'autres systèmes d'isolation dans le futur.
+J'ai essayé autrfois d'utiliser LXC directement mais je ne me rappelle pas avoir réussi un seul <code>lxc-create</code>.</p>
+<p>Docker vous aide à créer vos propres <em>containers</em> avec un <code>Dockerfile</code>. C'est une recette avec une liste de commandes à lancer à partir d'une image de base à choisir sur <a href="https://registry.hub.docker.com/">Docker Hub</a>.</p>
+<h2 id="choisir-le-bon-niveau-d-isolation">Choisir le bon niveau d'isolation</h2>
+<p>Quand on parle d'isolation, il faut choisir si l'on sépare absolument tout dans des <em>containers</em> différents ou si certains composant peuvent rester ensemble.
+Dans une application PHP classique avec php-fpm, nginx et mysql, vous allez mettre mysql dans son propre container. Mais séparer nginx de php-fpm est excessif.</p>
+<h2 id="trucs-et-astuces">Trucs et astuces</h2>
+<p>Déboguer ce qui ne va pas dans votre <em>container</em> est difficile au premier abord et vous apprécieriez d'avoir un <em>shell</em>. C'est pourquoi tous mes <em>containers</em> de démons lancent un <em>shell</em>. Notez qu'il faut utiliser les options <code>-t</code> et <code>-i</code> de <code>docker run</code> pour que bash ne se ferme pas immédiatement.</p>
+<pre data-lang="dockerfile" style="background-color:#272822;color:#f8f8f2;" class="language-dockerfile "><code class="language-dockerfile" data-lang="dockerfile"><span>CMD /etc/init.d/nginx start &amp;&amp; bash
+</span></code></pre>
+<p>Vous n'avez pas besoin d'exposer les ports du <em>container</em> sur la machine hôte. La plupart du temps, ce dont vous avez réellement besoin est l'adresse IP du <em>container</em>.</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span>docker inspect</span><span style="font-style:italic;color:#fd971f;"> --format</span><span style="color:#f92672;">=</span><span style="color:#e6db74;">&#39;{{ &quot;{{&quot; }} .NetworkSettings.IPAddress }}&#39; </span><span>$CONTAINER
+</span></code></pre>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

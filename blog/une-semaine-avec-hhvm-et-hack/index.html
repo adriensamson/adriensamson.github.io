@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+Une semaine avec HHVM et Hack par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>Une semaine avec HHVM et Hack</h1>
+<div>par <a href="/">Adrien Samson</a> le 04 mai 2015</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <h2 id="hack">Hack</h2>
+<p><a href="http://hacklang.org/">Hack</a> est un langage créé par Facebook au-dessus de PHP qui ajoute des fonctionnalités telles que
+du <a href="http://docs.hhvm.com/manual/en/hack.annotations.php">typage poussé</a>, des nouvelles <a href="http://docs.hhvm.com/manual/en/hack.collections.php">formes de tableaux</a> et de l'<a href="http://docs.hhvm.com/manual/en/hack.async.php">asynchrone</a>.</p>
+<p>J'ai voulu l'essayer principalement pour les apports du typage.
+Et le typage, ce n'est pas seulement mettre des <em>type hint</em> qui sont vérifiés pendant l'exécution du code.
+C'est aussi (et surtout) permettre une analyse statique du code qui détecte les incohérances entre les types déclarés et le code.</p>
+<p>HHVM embarque Hack par défaut et on peut le mélanger avec du code PHP classique, il fournit aussi l'analyseur statique <code>hh_client</code>.
+Pour analyser le code, il suffit de créer un fichier <code>.hhconfig</code> vide à la racine du projet et de lancer <code>hh_client src/</code>.</p>
+<h2 id="mise-en-place">Mise en place</h2>
+<p>Pour vérifier que les fichiers convertis en Hack fonctionnent toujours comme prévu, il suffit de lancer les tests.
+En effet, PHPUnit fonctionne bien avec HHVM et il est tout à fait possible de tester une classe écrite dans un fichier Hack avec un test écrit dans un fichier PHP.</p>
+<p>Facebook propose des <a href="https://github.com/facebook/hhvm/wiki/Prebuilt-Packages-for-HHVM">dépots</a> pour installer facilement HHVM.
+J'ai donc pu créer très rapidement une <a href="https://github.com/adriensamson/docker-images/tree/master/nginx-hhvm">image docker avec nginx</a> et vérifier que mon application fonctionnait toujours.</p>
+<h2 id="hhvm-avec-nginx-et-symfony">HHVM avec nginx et symfony</h2>
+<h3 id="erreurs-fatales">Erreurs fatales</h3>
+<p>Le premier problème que j'ai rencontré en essayant de faire tourner une application symfony était une page blanche sur une erreur fatale.
+J'ai pu retrouver l'erreur dans le profiler mais ce n'est pas très pratique.
+Après un peu de <a href="https://github.com/facebook/hhvm/issues/4818">recherche</a>, il s'avère que c'est juste que l'<em>ErrorHandler</em> de Symfony ne fait pas de <code>flush()</code>.
+Ce qui peut être corrigé très facilement en ajoutant <code>hhvm.server.implicit_flush = 1</code> dans la configuration HHVM.</p>
+<p>Cette gestion des erreurs fatales par Symfony utilise la fonction <code>error_get_last()</code>.
+Avec HHVM, cette fonction ne renvoie pas les bonnes informations de fichier et de ligne pour les erreurs fatales, alors qu'elle est correcte dans le log d'erreur natif.
+J'ai donc fait une <a href="https://github.com/facebook/hhvm/pull/5221">PR</a> pour corriger cela.</p>
+<h3 id="sessions">Sessions</h3>
+<p>J'ai rencontré un autre problème, un peu plus tordu, au niveau des sessions.
+La gestion des sessions par défaut de Symfony pose problème dès qu'il y a une propriété privée à sérialiser dans la session, c'est-à-dire dès qu'on essaye de connecter un utilisateur.
+Il existe un contournement qui consiste à désactiver le session handler par défaut et à démarrer la session à la main dans <code>app.php</code></p>
+<pre data-lang="yaml" style="background-color:#272822;color:#f8f8f2;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#75715e;"># config.yml
+</span><span style="color:#f92672;">framework</span><span>:
+</span><span>    </span><span style="color:#f92672;">session</span><span>:
+</span><span>        </span><span style="color:#f92672;">handler_id</span><span>: </span><span style="color:#ae81ff;">~
+</span></code></pre>
+<pre data-lang="php" style="background-color:#272822;color:#f8f8f2;" class="language-php "><code class="language-php" data-lang="php"><span>&lt;?php </span><span style="color:#75715e;">// app_dev.php
+</span><span style="color:#66d9ef;">session_save_path</span><span>(</span><span style="color:#ae81ff;">__DIR__</span><span style="color:#f92672;">.</span><span style="color:#e6db74;">&#39;/../app/cache/dev/sessions&#39;</span><span>);
+</span><span style="color:#66d9ef;">session_start</span><span>();
+</span></code></pre>
+<p>Mais c'est quand même mieux de <a href="https://github.com/facebook/hhvm/pull/5212">faire une PR</a> pour corriger HHVM.</p>
+<h2 id="et-ensuite">Et ensuite ?</h2>
+<p>Ensuite, ce serait intéressant de faire passer tous les tests de Symfony avec HHVM.
+Malheureusement, il y a pas mal de boulot et les tests ne sont pas forcément représentatifs de l'utilisation réelle du framework.
+Il est sûrement plus simple, et surtout plus efficace, de faire fonctionner des applications complètes.</p>
+<p>Donc si vous avez une application que vous voulez passer sur HHVM, contactez-moi !</p>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

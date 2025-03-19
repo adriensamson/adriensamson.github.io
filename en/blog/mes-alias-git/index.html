@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <meta name="author" content="Adrien Samson">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width, viewport-fit=cover">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300..700&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/cv.css" media="screen,print" />
+    <link rel="stylesheet" type="text/css" href="/print.css" media="print" />
+    <title>
+My git aliases par Adrien Samson
+</title>
+</head>
+
+<body>
+<div id="container">
+    <div class="inner">
+
+        <header>
+            
+<h1>My git aliases</h1>
+<div>par <a href="/">Adrien Samson</a> le 09 mars 2014</div>
+
+        </header>
+        <hr />
+
+        <section id="main_content">
+            
+    <h2 id="most-used-commands">Most used commands</h2>
+<p>When I'm working on a project at <a href="http://tech.m6web.fr">M6Web</a>, my workflow is almost always like this:</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span>git checkout master
+</span><span>git pull</span><span style="font-style:italic;color:#fd971f;"> --ff-only</span><span> origin master
+</span><span>git checkout</span><span style="font-style:italic;color:#fd971f;"> -b</span><span> my-new-feature
+</span><span style="color:#75715e;"># Code...
+</span><span>git status
+</span><span>git add</span><span style="font-style:italic;color:#fd971f;"> -A
+</span><span>git diff</span><span style="font-style:italic;color:#fd971f;"> --staged
+</span><span>git commit
+</span><span>git push origin my-new-feature
+</span></code></pre>
+<p>Since I run these commands very often, I've abbreviated them to 1 or 2 letters:</p>
+<pre data-lang="bash" style="background-color:#272822;color:#f8f8f2;" class="language-bash "><code class="language-bash" data-lang="bash"><span>git co master
+</span><span>git u
+</span><span>git co</span><span style="font-style:italic;color:#fd971f;"> -b</span><span> my-new-feature
+</span><span style="color:#75715e;"># Code...
+</span><span>git s
+</span><span>git a
+</span><span>git ds
+</span><span>git ci
+</span><span>git p
+</span></code></pre>
+<h2 id="other-aliases">Other aliases</h2>
+<p>I can't read <code>git log</code> output without <code>--graph --decorate</code> options so I added <code>git l</code> for that.
+I also have <code>git r</code> for <code>git pull --rebase</code> and <code>git d</code> for <code>git diff</code>.</p>
+<p>All these aliases are in my <a href="https://github.com/adriensamson/git-utils">git-utils</a> repository.</p>
+
+
+    <footer>
+        <hr>
+        <a href="https://www.linkedin.com/in/adriensamson">LinkedIn</a> |
+        <a href="mailto:pro@adriensamson.fr">Email</a> |
+        <a href="https://github.com/adriensamson">GitHub</a>
+    </footer>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>
