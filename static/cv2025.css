@@ -1,0 +1,248 @@
+@page {
+    size: A4;
+    margin: 1rem;
+}
+:root {
+    --ogga: #2c4863;
+    --indep: green;
+    --smile: #ff8054;
+    --ecl: #80242E;
+
+    --accent-fg: oklch(25% 0.085 275);
+    --accent-bg: oklch(90% 0.085 275);
+    --accent-border: oklch(50% 0.085 275);
+}
+html {
+    background: #eeeeee;
+    color: #000000;
+    font-family: Nunito, sans-serif;
+    font-size: 16px;
+}
+body {
+    background: white;
+    width: 47.5rem;
+    margin: 1rem auto;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+h2 {
+    margin: 1rem 0 .5rem;
+    font-weight: 700;
+    color: var(--accent-fg);
+}
+a {
+    color: var(--accent-fg);
+    text-decoration: none;
+}
+p {
+    margin: .5rem 0;
+}
+header {
+    display: flex;
+}
+header > div {
+    flex: 1
+}
+#name {
+    flex: 0 0 12rem;
+    margin-left: 4rem;
+    text-align: right;
+}
+#name div.photo > img {
+    width: 80%;
+    border-radius: 100%;
+}
+header h1 {
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: var(--accent-fg);
+}
+
+small {
+    color: #555555;
+    font-size: .9rem;
+}
+
+dl, ul {
+    margin: .5rem 0;
+}
+dl:has(~ .fork) {
+    margin-bottom: 0;
+}
+dl.under-fork {
+    margin-top: 0;
+}
+dt {
+    font-weight: 700;
+    color: var(--accent-fg);
+}
+dd {
+    margin-left: 3rem;
+    text-indent: -1.5rem;
+}
+li {
+    list-style: "» ";
+}
+#profile h2 {
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+}
+#profile p {
+    text-align: justify;
+}
+
+#technologies ~ div {
+    flex: 1;
+    display: flex;
+}
+#softskills {
+    flex: 3
+}
+#softskills ~ div {
+    flex: 1;
+}
+#softskills ul {
+    column-count: 2;
+}
+
+#technologies div.table {
+    display: grid;
+    grid-column-gap: 1.5rem;
+    grid-template-columns: min-content repeat(3, 1fr);
+}
+#technologies div.table div:not(.header) {
+    border-top: solid 1px var(--accent-border);
+    margin-top: .3rem;
+    padding-top: .3rem;
+}
+#technologies div.table div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+#technologies div.table div span {
+    font-size: .9rem;
+    background: var(--accent-bg);
+    border-radius: 1em;
+    padding: 0 .4em;
+    margin: .1em;
+}
+
+div.chronology {
+    display: grid;
+    grid-template-columns: [year] 3rem [track1] 2rem [track2] 2rem [track3] 2rem [track4 text] 1fr;
+}
+div.chronology div.year {
+    grid-column: year;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+div.chronology .text {
+    grid-column: text;
+}
+div.chronology div.track {
+    position: relative;
+}
+div.chronology div.track:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="black"/></svg>') repeat-y center / 1rem;
+}
+div.chronology div.track.ogga:before {
+    background-color: var(--ogga);
+}
+div.chronology div.track.indep:before {
+    background-color: var(--indep);
+}
+div.chronology div.track.smile:before {
+    background-color: var(--smile);
+}
+div.chronology div.track.ecl:before {
+    background-color: var(--ecl);
+}
+div.chronology div.point {
+    position: relative;
+}
+div.chronology div.point:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="black"/></svg>') no-repeat center / 1rem;
+}
+div.chronology div.fork.smile-indep {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="green" fill="none"/></svg>') no-repeat center / 100%;
+    height: 2rem;
+}
+div.chronology div.fork.indep-ogga {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="green"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100%;
+    height: 2rem;
+    transform: scale(-1, 1);
+}
+div.chronology div.fork.ogga {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
+    height: 2rem;
+}
+div.chronology div.fork.ogga2 {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 30 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 20 5, 20 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
+    height: 2rem;
+}
+div.company {
+    grid-column: text;
+    font-size: 130%;
+}
+div.company strong {
+    margin-right: 1rem;
+    font-family: Fredoka, sans-serif;
+    font-weight: 600;
+}
+div.company.ogga strong {
+    color: var(--ogga);
+}
+div.company.indep strong {
+    color: var(--indep);
+}
+div.company.smile strong {
+    color: var(--smile);
+}
+div.company.ecl strong {
+    color: var(--ecl);
+}
+
+div.chronology div.track1 {
+    grid-column: track1;
+}
+div.chronology div.track2 {
+    grid-column: track2;
+}
+div.chronology div.track3 {
+    grid-column: track3;
+}
+div.chronology div.track1-2 {
+    grid-column: track1 / track3;
+}
+div.chronology div.track1-3 {
+    grid-column: track1 / track4;
+}
+
+@media print {
+    html {
+        background: none;
+    }
+    body {
+        margin: 0;
+        background: none;
+        print-color-adjust: exact;
+    }
+}
