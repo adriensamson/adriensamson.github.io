@@ -207,16 +207,16 @@ div.company strong {
     font-family: Fredoka, sans-serif;
     font-weight: 600;
 }
-div.company.ogga strong {
+div.company.ogga strong, dl.text.ogga dt {
     color: var(--ogga);
 }
-div.company.indep strong {
+div.company.indep strong, dl.text.indep dt {
     color: var(--indep);
 }
-div.company.smile strong {
+div.company.smile strong, dl.text.smile dt {
     color: var(--smile);
 }
-div.company.ecl strong {
+div.company.ecl strong, dl.text.ecl dt {
     color: var(--ecl);
 }
 
