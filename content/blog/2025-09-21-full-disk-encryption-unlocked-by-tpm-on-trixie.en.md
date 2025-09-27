@@ -92,7 +92,7 @@ Welcome to `Boot0006` and it's first in `BootOrder`. It's time to reboot!
 After reboot, we can check that `CurrentBoot` is `0006`. We can also uninstall `grub` and clean EFI bootloaders.
 
 ```
-sudo apt purge grub-efi-amd64-* --allow-remove-essential
+sudo apt purge grub-efi-amd64-* grub2-common --allow-remove-essential
 sudo efibootmgr -B -b 0000
 sudo efibootmgr -B -b 0003
 # let's also remove windows and PXE
@@ -102,3 +102,90 @@ sudo efibootmgr -B -b 0004
 ```
 
 ## Ukify
+
+Now we're going to migrate to a [Unfied Kernel Image (UKI)](https://uapi-group.org/specifications/specs/unified_kernel_image/).
+UKI permits to bundle a kernel, an initramfs and a command line together and sign it for SecureBoot.
+
+SecureBoot helps to ensure that only trusted code is loaded on boot. All code is signed and the signature is checked against a key database.
+In a typical Debian installations, this is the chain of trust:
+
+1. The computer firmware running UEFI and trusts Microsoft's CA by default.
+2. Debian's `shim` is signed by Microsoft and trusts Debian's CA.
+3. Debian's kernel is signed by Debian's CA.
+
+We can't make Debian or Microsoft sign our UKI, so we'll need to enroll our own key. Luckily `shim` permits to enroll MOK (Machine Owner Key).
+Looking at `man ukify` and `man kernell-install`, we can find the interesting bits for configuration.
+
+```
+# Install
+sudo apt install systemd-ukify mokutil
+
+# switch kernel-install to ukify
+echo layout=uki | sudo tee /etc/kernel/install.conf
+
+# configure ukify (exemple #5)
+sudo tee /etc/kernel/uki.conf <<EOF
+[UKI]
+SecureBootPrivateKey=/etc/kernel/secure-boot-key.pem
+SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem
+
+[PCRSignature:initrd]
+Phases=enter-initrd
+PCRPrivateKey=/etc/systemd/tpm2-pcr-private-key-initrd.pem
+PCRPublicKey=/etc/systemd/tpm2-pcr-public-key-initrd.pem
+
+[PCRSignature:system]
+Phases=enter-initrd:leave-initrd enter-initrd:leave-initrd:sysinit
+       enter-initrd:leave-initrd:sysinit:ready
+PCRPrivateKey=/etc/systemd/tpm2-pcr-private-key-system.pem
+PCRPublicKey=/etc/systemd/tpm2-pcr-public-key-system.pem
+EOF
+
+# Generate the keys
+sudo ukify genkey --config=/etc/kernel/uki.conf
+
+# Optionally copy current cmdline and edit it (add splash for example)
+sudo cp /proc/cmdline /etc/kernel/cmdline
+
+# Reinstall systemd-boot entry with the new config
+sudo kernel-install add $(uname -r) /boot/vmlinuz-$(uname -r)
+```
+
+Now, the UKI is generated and installed. We must enroll the keys with `mokutil` to allow boot with SecureBoot enabled.
+`mokutil` with ask for a password, it will be asked during the enrollment by `shim` at early boot stage.
+Be careful, your regular keyboard layout won't be loaded so choose a password you can type in a QWERTY layout.
+Reboot and follow the steps in `shim`.
+
+```
+sudo openssl x509 -outform DER -in /etc/kernel/secure-boot-certificate.pem -out /etc/kernel/secure-boot-certificate.cer
+sudo mokutil -i /etc/kernel/secure-boot-certificate.cer
+sudo reboot
+```
+
+If everything is fine, you can check with `sudo bootctl`, that the current boot entry is a `.efi` file.
+
+## Dracut
+
+Debian's default initramfs doesn't handle advanced unlock strategies for LUKS disks.
+So we'll need to use `systemd-crypsetup`, and the easiest way to have in initramfs is using `dracut`.
+Trixie's `dracut` defaults to generic initramfs and doesn't include `/etc/crypttab` so we'll need to tell `kernel-install` to not take the default initramfs.
+It already supports calling `dracut` with the good arguments.
+
+```
+sudo apt install dracut
+sudo ln -s /dev/null /etc/kernel/install.d/55-initrd.install
+# rebuild uki
+sudo kernel-install add $(uname -r) /boot/vmlinuz-$(uname -r)
+```
+
+Since we do not use the default initramfs in `/boot`, we can cleanup some scripts to avoid rebuilding it at each kernel update.
+
+```
+sudo apt purge initramfs-tools
+sudo rm /etc/kernel/postinst.d/dracut
+sudo rm /etc/kernel/postrm.d/dracut
+sudo rm /boot/initrd.img-*
+```
+
+## Cryptenroll
+
