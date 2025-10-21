@@ -189,3 +189,26 @@ sudo rm /boot/initrd.img-*
 
 ## Cryptenroll
 
+The last step is enrolling a TPM based key slot in LUKS.
+The hardest thing to reason with TPM is choosing the right [PCR](https://uapi-group.org/specifications/specs/linux_tpm_pcr_registry/) to bind to.
+`systemd-cryptsetup` allows two ways to bind a policy to PCR.
+Firstly, binding to the content of the PCR at that time of boot. By default, `systemd-cryptenroll` binds to PCR 7 which is `SecureBoot` policy (is it enabled and which firmware keys are defined).
+I will add PCR 14 which is measured against MOK in `shim`.
+
+Secondly, it can bind to PCRs via a public key. It means that you won't have to re-enroll each time this part changes given that it's signed with the same key.
+By default, `systemd-cryptenroll` binds to PCR 11, ie the UKI. That's why we created keys earlier with `uki.conf`.
+
+```
+# make sure dracut has tpm modules installed
+sudo apt install tpm2-tools
+echo 'add_dracutmodules+=" systemd-pcrphase "' | sudo tee /etc/dracut.conf.d/pcr.conf
+
+sudo systemd-cryptenroll --tpm2-device=auto --tpm2-public-key=/etc/systemd/tpm2-pcr-public-key-initrd.pem --tpm2-pcrs=7+14
+# edit crypttab to add option tpm2-device=auto
+sudo nano /etc/crypttab
+
+# rebuild UKI to include the new dracut modules and crypttab content
+sudo kernel-install add $(uname -r) /boot/vmlinuz-$(uname -r)
+```
+
+Reboot, and that's all!
