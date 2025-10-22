@@ -1,4 +1,6 @@
-# Full disk encryption unlocked by TPM on Trixie
++++
+title = "Full disk encryption unlocked by TPM on Trixie"
++++
 
 ## Introduction
 
