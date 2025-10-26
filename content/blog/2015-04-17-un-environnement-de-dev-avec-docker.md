@@ -1,8 +1,6 @@
----
-layout: post
-title: Un environnement de dev avec docker
-language: fr
----
++++
+title = "Un environnement de dev avec docker"
++++
 
 ## Isolation
 

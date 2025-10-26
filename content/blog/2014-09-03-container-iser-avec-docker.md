@@ -1,10 +1,6 @@
----
-layout: post
-title: Container-iser avec docker
-language: fr
-other_languages:
-    en: containerize-with-docker.html
----
++++
+title = "Container-iser avec docker"
++++
 
 Il y deux raisons principales pour lesquelles vous pourriez vouloir *container*-iser vos applications :
 

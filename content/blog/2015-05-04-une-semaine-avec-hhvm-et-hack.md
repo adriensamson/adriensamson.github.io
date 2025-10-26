@@ -1,8 +1,6 @@
----
-layout: post
-language: fr
-title: Une semaine avec HHVM et Hack
----
++++
+title = "Une semaine avec HHVM et Hack"
++++
 
 ## Hack
 

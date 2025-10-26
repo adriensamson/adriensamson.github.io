@@ -1,8 +1,6 @@
----
-title: Mes alias git
-other_languages:
-    en: my-git-aliases.html
----
++++
+title = "Mes alias git"
++++
 ## Commandes les plus utilisées
 
 Quand je travaille sur un projet chez [M6Web](http://tech.m6web.fr), je fais toujours à peu près ça :

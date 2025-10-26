@@ -1,10 +1,6 @@
----
-layout: post
-title: My git aliases
-language: en
-other_languages:
-    fr: mes-alias-git.html
----
++++
+title = "My git aliases"
++++
 ## Most used commands
 
 When I'm working on a project at [M6Web](http://tech.m6web.fr), my workflow is almost always like this:

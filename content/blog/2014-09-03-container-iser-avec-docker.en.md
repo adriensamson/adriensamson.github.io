@@ -1,10 +1,6 @@
----
-layout: post
-title: Containerize with docker
-language: en
-other_languages:
-    fr: container-iser-avec-docker.html
----
++++
+title = "Containerize with docker"
++++
 
 There are mainly two reasons why you may want to containerize your apps:
 

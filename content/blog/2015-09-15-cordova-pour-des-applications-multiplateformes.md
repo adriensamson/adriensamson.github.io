@@ -1,8 +1,6 @@
----
-layout: post
-title: Cordova, pour des applications multi-plateformes
-language: fr
----
++++
+title = "Cordova, pour des applications multi-plateformes"
++++
 
 ## Cordova et PhoneGap
 
