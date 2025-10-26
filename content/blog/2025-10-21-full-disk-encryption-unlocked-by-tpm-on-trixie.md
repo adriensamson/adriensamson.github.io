@@ -25,7 +25,7 @@ Since you don't like to break the boot sequence and have to use a rescue disk, w
 Even though Trixie installer has support for `systemd-boot` in expert mode, I did not remember when I did the install and `grub` got installed.
 Let's start with that.
 
-```shell
+```sh
 sudo apt install systemd-boot
 ```
 
@@ -68,7 +68,7 @@ efibootmgr -q --create --disk "$drive" --part "$partno" --loader "EFI/${vendor}/
 
 For my laptop, this becomes:
 
-```
+```sh
 sudo efibootmgr -q --create --disk "/dev/nvme0n1" --part "1" --loader "EFI/debian/shimx64.efi" --label "Debian" --unicode "\EFI\systemd\systemd-bootx64.efi \0"
 ```
 
@@ -93,7 +93,7 @@ Welcome to `Boot0006` and it's first in `BootOrder`. It's time to reboot!
 
 After reboot, we can check that `CurrentBoot` is `0006`. We can also uninstall `grub` and clean EFI bootloaders.
 
-```
+```sh
 sudo apt purge grub-efi-amd64-* grub2-common --allow-remove-essential
 sudo efibootmgr -B -b 0000
 sudo efibootmgr -B -b 0003
@@ -118,7 +118,7 @@ In a typical Debian installations, this is the chain of trust:
 We can't make Debian or Microsoft sign our UKI, so we'll need to enroll our own key. Luckily `shim` permits to enroll MOK (Machine Owner Key).
 Looking at `man ukify` and `man kernell-install`, we can find the interesting bits for configuration.
 
-```
+```sh
 # Install
 sudo apt install systemd-ukify mokutil
 
@@ -158,7 +158,7 @@ Now, the UKI is generated and installed. We must enroll the keys with `mokutil` 
 Be careful, your regular keyboard layout won't be loaded so choose a password you can type in a QWERTY layout.
 Reboot and follow the steps in `shim`.
 
-```
+```sh
 sudo openssl x509 -outform DER -in /etc/kernel/secure-boot-certificate.pem -out /etc/kernel/secure-boot-certificate.cer
 sudo mokutil -i /etc/kernel/secure-boot-certificate.cer
 sudo reboot
@@ -173,7 +173,7 @@ So we'll need to use `systemd-crypsetup`, and the easiest way to have in initram
 Trixie's `dracut` defaults to generic initramfs and doesn't include `/etc/crypttab` so we'll need to tell `kernel-install` to not take the default initramfs.
 It already supports calling `dracut` with the good arguments.
 
-```
+```sh
 sudo apt install dracut
 sudo ln -s /dev/null /etc/kernel/install.d/55-initrd.install
 # rebuild uki
@@ -182,7 +182,7 @@ sudo kernel-install add $(uname -r) /boot/vmlinuz-$(uname -r)
 
 Since we do not use the default initramfs in `/boot`, we can cleanup some scripts to avoid rebuilding it at each kernel update.
 
-```
+```sh
 sudo apt purge initramfs-tools
 sudo rm /etc/kernel/postinst.d/dracut
 sudo rm /etc/kernel/postrm.d/dracut
@@ -200,7 +200,7 @@ I will add PCR 14 which is measured against MOK in `shim`.
 Secondly, it can bind to PCRs via a public key. It means that you won't have to re-enroll each time this part changes given that it's signed with the same key.
 By default, `systemd-cryptenroll` binds to PCR 11, ie the UKI. That's why we created keys earlier with `uki.conf`.
 
-```
+```sh
 # make sure dracut has tpm modules installed
 sudo apt install tpm2-tools
 echo 'add_dracutmodules+=" systemd-pcrphase "' | sudo tee /etc/dracut.conf.d/pcr.conf
