@@ -12,6 +12,11 @@
     --accent-bg: oklch(90% 0.085 275);
     --accent-border: oklch(50% 0.085 275);
 }
+
+[hidden] {
+    display: none !important;
+}
+
 html {
     background: #eeeeee;
     color: #000000;
@@ -81,6 +86,9 @@ dd {
     margin-left: 3rem;
     text-indent: -1.5rem;
 }
+ul {
+    padding: 0 .5rem 0 1.5rem;
+}
 li {
     list-style: "» ";
 }
@@ -92,18 +100,21 @@ li {
     text-align: justify;
 }
 
-#technologies ~ div {
+#softskills-wrapper {
     flex: 1;
     display: flex;
 }
-#softskills {
-    flex: 3
-}
-#softskills ~ div {
+#softskills-wrapper > div {
     flex: 1;
+}
+#softskills-wrapper > div#softskills {
+    flex: 2;
 }
 #softskills ul {
     column-count: 2;
+}
+#softskills-wrapper > div#languages {
+    flex: .6;
 }
 
 #technologies div.table {
