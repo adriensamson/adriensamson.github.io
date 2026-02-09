@@ -8,6 +8,8 @@
     --smile: #ff8054;
     --ecl: #80242E;
 
+    --grey: #555555;
+
     --accent-fg: oklch(25% 0.085 275);
     --accent-bg: oklch(90% 0.085 275);
     --accent-border: oklch(50% 0.085 275);
@@ -65,7 +67,7 @@ header h1 {
 }
 
 small {
-    color: #555555;
+    color: var(--grey);
     font-size: .9rem;
 }
 
@@ -141,110 +143,63 @@ li {
     margin: .1em;
 }
 
-div.chronology {
-    display: grid;
-    grid-template-columns: [year] 3rem [track1] 2rem [track2] 2rem [track3] 2rem [track4 text] 1fr;
-}
-div.chronology div.year {
-    grid-column: year;
+div.chronology div.columns {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    align-items: start;
 }
-div.chronology .text {
-    grid-column: text;
+div.chronology div.columns > * {
+    flex: 1;
 }
-div.chronology div.track {
-    position: relative;
+
+div.chronology dl {
+    border-left: solid .3rem;
+    padding-left: .5rem;
+    margin: 0;
 }
-div.chronology div.track:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    mask: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 10 10"><rect x="-1" y="0" width="2" height="10" fill="black"/></svg>') repeat-y center / 1rem;
+
+div.chronology dl + dl {
+    padding-top: 1rem;
 }
-div.chronology div.track.ogga:before {
-    background-color: var(--ogga);
+
+div.chronology dl.ogga {
+    border-color: var(--ogga);
 }
-div.chronology div.track.indep:before {
-    background-color: var(--indep);
+div.chronology dl.indep {
+    border-color: var(--indep);
 }
-div.chronology div.track.smile:before {
-    background-color: var(--smile);
+div.chronology dl.smile {
+    border-color: var(--smile);
 }
-div.chronology div.track.ecl:before {
-    background-color: var(--ecl);
+div.chronology dl.ecl {
+    border-color: var(--ecl);
 }
-div.chronology div.point {
-    position: relative;
+div.chronology dt span.dates {
+    font-weight: normal;
 }
-div.chronology div.point:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 2;
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -5 10 10"><circle cx="0" cy="0" r="3" fill="white" stroke="black"/></svg>') no-repeat center / 1rem;
-}
-div.chronology div.fork.smile-indep {
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="green" fill="none"/></svg>') no-repeat center / 100%;
-    height: 2rem;
-}
-div.chronology div.fork.indep-ogga {
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="green"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100%;
-    height: 2rem;
-    transform: scale(-1, 1);
-}
-div.chronology div.fork.ogga {
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 20 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 10 5, 10 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
-    height: 2rem;
-}
-div.chronology div.fork.ogga2 {
-    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 30 10"><rect x="-.5" y="0" width="1" height="10" fill="%232c4863"/><path d="M 0 10 C 0 5, 20 5, 20 0" stroke-width="1" stroke="%232c4863" fill="none"/></svg>') no-repeat center / 100% 100%;
-    height: 2rem;
-}
-div.company {
+
+h3.company {
     grid-column: text;
     font-size: 130%;
 }
-div.company strong {
+h3.company strong {
     margin-right: 1rem;
     font-family: Fredoka, sans-serif;
     font-weight: 600;
 }
-div.company.ogga strong, dl.text.ogga dt {
+h3.company small {
+    font-weight: normal;
+}
+h3.company.ogga strong, dl.text.ogga dt {
     color: var(--ogga);
 }
-div.company.indep strong, dl.text.indep dt {
+h3.company.indep strong, dl.text.indep dt {
     color: var(--indep);
 }
-div.company.smile strong, dl.text.smile dt {
+h3.company.smile strong, dl.text.smile dt {
     color: var(--smile);
 }
-div.company.ecl strong, dl.text.ecl dt {
+h3.company.ecl strong, dl.text.ecl dt {
     color: var(--ecl);
-}
-
-div.chronology div.track1 {
-    grid-column: track1;
-}
-div.chronology div.track2 {
-    grid-column: track2;
-}
-div.chronology div.track3 {
-    grid-column: track3;
-}
-div.chronology div.track1-2 {
-    grid-column: track1 / track3;
-}
-div.chronology div.track1-3 {
-    grid-column: track1 / track4;
 }
 
 @media print {
@@ -255,5 +210,8 @@ div.chronology div.track1-3 {
         margin: 0;
         background: none;
         print-color-adjust: exact;
+    }
+    dl {
+        break-inside: avoid;
     }
 }
