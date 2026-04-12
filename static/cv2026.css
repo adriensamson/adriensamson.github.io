@@ -180,6 +180,7 @@ div.chronology dt span.dates {
 h3.company {
     grid-column: text;
     font-size: 130%;
+    break-after: avoid;
 }
 h3.company strong {
     margin-right: 1rem;
