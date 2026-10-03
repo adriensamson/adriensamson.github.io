@@ -69,8 +69,8 @@ header > div {
     flex: 1
 }
 #name {
-    flex: 0 0 14rem;
-    margin-left: 2rem;
+    flex: 0 0 14.5rem;
+    margin-left: 1.5rem;
     text-align: right;
 }
 #name div.photo > img {
