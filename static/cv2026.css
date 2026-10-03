@@ -7,12 +7,30 @@
     --indep: green;
     --smile: #ff8054;
     --ecl: #80242E;
+    --insa: #e42618;
+    --company-color: var(--accent-fg);
 
     --grey: #555555;
 
     --accent-fg: oklch(25% 0.085 275);
     --accent-bg: oklch(90% 0.085 275);
     --accent-border: oklch(50% 0.085 275);
+}
+
+.ogga {
+    --company-color: var(--ogga);
+}
+.indep {
+    --company-color: var(--indep);
+}
+.smile {
+    --company-color: var(--smile);
+}
+.ecl {
+    --company-color: var(--ecl);
+}
+.insa {
+    --company-color: var(--insa);
 }
 
 [hidden] {
@@ -92,7 +110,7 @@ ul {
     padding: 0 .5rem 0 1.5rem;
 }
 li {
-    list-style: "» ";
+    list-style: "› ";
 }
 #profile h2 {
     font-family: Fredoka, sans-serif;
@@ -161,17 +179,8 @@ div.chronology dl + dl {
     padding-top: 1rem;
 }
 
-div.chronology dl.ogga {
-    border-color: var(--ogga);
-}
-div.chronology dl.indep {
-    border-color: var(--indep);
-}
-div.chronology dl.smile {
-    border-color: var(--smile);
-}
-div.chronology dl.ecl {
-    border-color: var(--ecl);
+div.chronology dl {
+    border-color: var(--company-color);
 }
 div.chronology dt span.dates {
     font-weight: normal;
@@ -190,17 +199,8 @@ h3.company strong {
 h3.company small {
     font-weight: normal;
 }
-h3.company.ogga strong, dl.text.ogga dt {
-    color: var(--ogga);
-}
-h3.company.indep strong, dl.text.indep dt {
-    color: var(--indep);
-}
-h3.company.smile strong, dl.text.smile dt {
-    color: var(--smile);
-}
-h3.company.ecl strong, dl.text.ecl dt {
-    color: var(--ecl);
+h3.company strong, dl.text dt {
+    color: var(--company-color);
 }
 
 @media print {
