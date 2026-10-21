@@ -12,9 +12,7 @@
 
     --grey: #555555;
 
-    --accent-fg: oklch(25% 0.085 275);
-    --accent-bg: oklch(90% 0.085 275);
-    --accent-border: oklch(50% 0.085 275);
+    --accent-fg: #201847;
 }
 
 .ogga {
@@ -50,9 +48,18 @@ body {
     padding: 1rem;
     box-sizing: border-box;
 }
+em, address {
+    font-style: italic;
+}
 h2 {
-    margin: 1rem 0 .5rem;
+    margin: .5rem 0;
+    font-size: 1.5rem;
     font-weight: 700;
+    color: var(--accent-fg);
+}
+h3 {
+    font-size: 1.3rem;
+    margin: .5rem 0 0 0;
     color: var(--accent-fg);
 }
 a {
@@ -84,13 +91,32 @@ header h1 {
     color: var(--accent-fg);
 }
 
+main {
+    display: flex;
+}
+main > div {
+    flex: 1
+}
+main > aside {
+    margin-top: 1.5rem;
+    flex: 0 0 14rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-left: dotted 1px var(--grey);
+}
+
 small {
     color: var(--grey);
-    font-size: .9rem;
+    font-size: .85rem;
 }
 
 dl, ul {
     margin: .5rem 0;
+}
+aside ul {
+    margin: 0;
 }
 dl:has(~ .fork) {
     margin-bottom: 0;
@@ -105,6 +131,7 @@ dt {
 dd {
     margin-left: 3rem;
     text-indent: -1.5rem;
+    font-size: 0.9rem;
 }
 ul {
     padding: 0 .5rem 0 1.5rem;
@@ -112,53 +139,15 @@ ul {
 li {
     list-style: "› ";
 }
+#perso li {
+    font-size: 0.9rem;
+}
 #profile h2 {
     font-family: Fredoka, sans-serif;
     font-weight: 600;
 }
 #profile p {
     text-align: justify;
-}
-
-#softskills-wrapper {
-    flex: 1;
-    display: flex;
-}
-#softskills-wrapper > div {
-    flex: 1;
-}
-#softskills-wrapper > div#softskills {
-    flex: 2;
-}
-#softskills ul {
-    column-count: 2;
-}
-#softskills-wrapper > div#languages {
-    flex: .6;
-}
-
-#technologies div.table {
-    display: grid;
-    grid-column-gap: 1.5rem;
-    grid-template-columns: min-content repeat(3, 1fr);
-}
-#technologies div.table div:not(.header) {
-    border-top: solid 1px var(--accent-border);
-    margin-top: .3rem;
-    padding-top: .3rem;
-}
-#technologies div.table div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
-}
-#technologies div.table div span {
-    font-size: .9rem;
-    background: var(--accent-bg);
-    border-radius: 1em;
-    padding: 0 .4em;
-    margin: .1em;
 }
 
 div.chronology div.columns {
